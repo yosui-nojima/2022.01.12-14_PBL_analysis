@@ -29,6 +29,10 @@ tar -zxvf sratoolkit.2.11.3-mac64.tar.gz
 tar -zxvf vcftools_0.1.13.tar.gz
 tar -jxvf bwa-0.7.17.tar.bz2
 ```
+解析に必要なファイルをダウンロードします。
+```
+curl -OL https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/Truseq_stranded_totalRNA_adapter.fa
+```
 
 ## 使用データ
 下記のpaired-endでシーケンスされた２サンプルのデータを使用します。\
