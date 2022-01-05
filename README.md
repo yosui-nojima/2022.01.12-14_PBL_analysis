@@ -50,7 +50,6 @@ tar -jxvf bwa-0.7.17.tar.bz2
 ### EBI ENA (https://www.ebi.ac.uk/ena/browser/home)
 <img width="1167" alt="スクリーンショット 2021-12-01 14 23 58" src="https://user-images.githubusercontent.com/85273234/144177440-38a84e15-0555-4ae3-9984-08590f751b7f.png">
 
-### ※データ検索は、スクリーン上で実演します。
 
 ## 1-2 データ取得方法
 １．解析したデータセットのAccession numberをNCBI SRA Run Selectorに入力し、『Search』をクリック。
@@ -62,11 +61,11 @@ SRR_Acc_List.txtの内容\
 
 SRA Toolkitの```prefetch```、```fastq-dump```を使ってデータを取得する。まず、```prefetch```でsraファイルがダウンロードされる。１つのsraファイルが20GBを超える場合は、-Xまたは--max-size 50Gなどのように最大数を変更する。--option-fileは使わずに直接Accession numberを入力して個別にダウンロードすることも可能です。
 ```
-prefetch --option-file ~/Downloads/SRR_Acc_list.txt
+prefetch --option-file ~/PBL/SRR_Acc_list.txt
 ```
 次に```fastq-dump```でsraファイルからfastqファイルを取得する。```PATH```にfastqファイルを格納したいディレクトリのパスを記載。\
 ```
-find . -name '*.sra' -exec fastq-dump --gzip --split-files --outdir ./PATH {} \;
+find . -name '*.sra' -exec fastq-dump --gzip --split-files --outdir ~/PBL {} \;
 ```
 - --gzip：圧縮ファイルとして出力する
 - --split-files：レイアウトがpaired-endの際に指定する。single-endのときは不要。
@@ -150,7 +149,7 @@ Trimmomaticを使って、アダプターの除去および低スコアな塩基
 アダプター配列を記載したFATSAファイルは[ここ](https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/Truseq_stranded_totalRNA_adapter.fa)からダウンロード可能です。（今回は、illumina社のTruSeqシリーズの配列を記載しています。自前データで実行する際は、ライブラリー作製キットで使用している配列が記載されたFASTAファイルを用意して実行して下さい。）\
 下記はpaired-endでシーケンスしたFASTQファイルの場合です。
 ```
-java -jar ~/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 4 -phred33 ./sample1_1_100K.fastq.gz ./sample1_2_100K.fastq.gz ./sample1_1_100K_trim_paired.fastq.gz ./sample1_1_100K_trim_unpaired.fastq.gz ./sample1_2_100K_trim_paired.fastq.gz ./sample1_2_100K_trim_unpaired.fastq.gz ILLUMINACLIP:Truseq_stranded_totalRNA_adapter.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:25
+java -jar ~/PBL/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 4 -phred33 ~/PBL/sample1_1_100K.fastq.gz ~/PBL/sample1_2_100K.fastq.gz ~/PBL/sample1_1_100K_trim_paired.fastq.gz ~/PBL/sample1_1_100K_trim_unpaired.fastq.gz ~/PBL/sample1_2_100K_trim_paired.fastq.gz ~/PBL/sample1_2_100K_trim_unpaired.fastq.gz ILLUMINACLIP:Truseq_stranded_totalRNA_adapter.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:25
 ```
 - PE：レイアウトがpaired-endシーケンスのときに指定。single-endの場合はSEを指定します。
 - -threads：スレッド数（使用するPC環境に合わせて設定して下さい。）
