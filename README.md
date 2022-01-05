@@ -230,11 +230,7 @@ Duplidate readsの含まれている数を示しています。
 - まずはEnsemblトップページの『Human』からをクリックします・
 - 次のページの右側『Gene annotation』内の『Download FASTA』をクリック。
 - ftpサイトの『dna』をクリックすると複数のファイルが閲覧できます。このうち、『Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz』を使用します。
-- 次はアノテーションファイルをダウンロードします。
-- Humanトップページの『Gene annotation』内の『Download GTF』をクリック。
-- ftpサイトの『Homo_sapiens.GRCh38.101.gtf.gz』をダウンロードします。
-- ※2021/12/15追記：バージョン104を使うとインデックス化でエラーで出るようです（恐らくEnsemblのファイルに問題あり）。バージョン101は問題ないことを確認していますので、本チュートリアルはバージョン101を使うことを前提にした内容に修正しました。\
-または、下記のコマンドでもダウンロード可能です。
+- または、下記のコマンドでもダウンロード可能です。いずれの場合も```PBL```ディレクトリに入れてください。
 ```
 curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
 ```
