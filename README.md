@@ -233,25 +233,19 @@ Duplidate readsの含まれている数を示しています。
 - 次はアノテーションファイルをダウンロードします。
 - Humanトップページの『Gene annotation』内の『Download GTF』をクリック。
 - ftpサイトの『Homo_sapiens.GRCh38.101.gtf.gz』をダウンロードします。
-- ※2021/12/15追記：バージョン104を使うとインデックス化でエラーで出るようです（恐らくEnsemblのファイルに問題あり）。バージョン101は問題ないことを確認していますので、本チュートリアルはバージョン101を使うことを前提にした内容に修正しました。
+- ※2021/12/15追記：バージョン104を使うとインデックス化でエラーで出るようです（恐らくEnsemblのファイルに問題あり）。バージョン101は問題ないことを確認していますので、本チュートリアルはバージョン101を使うことを前提にした内容に修正しました。\
+または、下記のコマンドでもダウンロード可能です。
+```
+curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+```
 
 ## 5 リファレンスゲノムへのマッピング
 ### 5-1 リファレンスゲノムファイルのインデックス化
 4でダウンロードしたリファレンスゲノムファイルをインデックス化します。一般的にゲノムデータのサイズは大きくなりがちでありそのままでは処理時間がかかってしまうため、インデックス（目次）ファイルを作成して高速にアクセスできるようにします。\
 インデックス化に必要なプログラムは、多くの場合マッピングツールに含まれています。\
-今回は、HISAT2に含まれる```hisat2-build```を使用します。\
-インデックス化する前段階として、まずは下記を実行します。それぞれスプライシングサイト、エキソンサイトを抽出するpythonスクリプトです。
 ```
-~/hisat2-2.2.1/extract_splice_sites.py ./Homo_sapiens.GRCh38.101.gtf > ./Homo_sapiens.GRCh38.101.ss
-~/hisat2-2.2.1/extract_exons.py ./Homo_sapiens.GRCh38.101.gtf > ./Homo_sapiens.GRCh38.101.exon 
+./bwa-0.7.17/bwa index ~/PBL/Homo_sapiens.GRCh38.dna.primary_assembly.fa
 ```
-上記の２ファイルも使って、インデックス化します。
-```
-~/hisat2-2.2.1/hisat2-build -p 18 --ss ./Homo_sapiens.GRCh38.101.ss --exon ./Homo_sapiens.GRCh38.101.exon ./Homo_sapiens.GRCh38.dna.primary_assembly.fa ./GRCh38.101
-```
-- -p：スレッド数（使用するPC環境に合わせて設定して下さい。）
-- -ss：extract_splice_sites.pyで作成したファイルを指定
-- -exon：extract_exons.pyで作成したファイルを指定
 
 ### 5-2 マッピング
 いよいよマッピングを行います。今回は時間短縮のため、１０万リードランダムサンプリングしたFASTQファイル（最初にダウンロードしたファイル）を5-1で作成したインデックス化したリファレンスゲノムにマッピングします。
