@@ -37,7 +37,10 @@ cd ..
 ```
 Samtoolsをコンパイルします。
 ```
-
+cd samtools-1.14
+./configure
+make
+cd ..
 ```
 解析に必要なファイルをダウンロードします。
 ```
