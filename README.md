@@ -181,14 +181,6 @@ java -jar ~/PBL/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 8 -phred33 ~/P
 - SLIDINGWINDOW：左の数字はウィンドウサイズ、右の数字は平均クオリティ値を表します。ウィンドウサイズの範囲内の塩基のスコア平均が設定値よりも低ければ、3'末端側の全ての塩基をトリム。\
 - MINLEN：設定値未満の塩基数になったリードを除去する。
 
-### awkコマンドを使ったバッチ処理
-サンプル数が多い場合一つ一つコマンドを打って処理するのは面倒です。その場合、下記のようにawkコマンドを使って複数サンプルのコマンドを１つのシェルファイルに記載してバッチ処理することができます。\
-変数部分が```%s```に該当します。```%s```の数だけ後部にカンマ区切りの```$1```を記載します。
-```
-ls sample*_100K.fastq.gz | cut -f1 -d_ | sort | uniq | awk '{printf ("java -jar ~/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 4 -phred33 %s_1_100K.fastq.gz %s_2_100K.fastq.gz %s_1_100K_trim_paired.fastq.gz %s_1_100K_trim_unpaired.fastq.gz %s_2_100K_trim_paired.fastq.gz %s_2_100K_trim_unpaired.fastq.gz ILLUMINACLIP:Truseq_stranded_totalRNA_adapter.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:25 2> %s_trim.txt \n", $1, $1, $1, $1, $1, $1, $1)}' > trim.sh
-sh trim.sh
-```
-
 ### リードトリミング後のFastQC結果
 #### Per base sequence quality
 リードの各塩基のクオリティスコアを示しています。 Phred quality scoreがだいたいグリーンの領域（Scoreが28以上）に収まっているかどうか確認します。 結果として、クオリティが低いリードは含まれていないことが確認できます。\
@@ -268,6 +260,8 @@ curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapi
 ./samtools-1.14/samtools sort -@ 8 -o ./Normal.bam ./Normal.sam
 ./samtools-1.14/samtools sort -@ 8 -o ./Tumor.bam ./Tumor.sam
 ```
+- -@：スレッド数（使用するPC環境に合わせて設定して下さい。）
+- -o：出力ファイル名を指定
 
 ## 6 マッピングデータから遺伝子ごとにリードのカウントデータを取得する
 マッピング結果であるSAMファイルからgeneごとまたはtranscriptごとにリードのカウント数を出力します。\
