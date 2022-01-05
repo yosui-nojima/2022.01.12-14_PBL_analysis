@@ -1,4 +1,4 @@
-# がん研究会PBL　解析　〜Transcriptome解析〜
+# がん研究会PBL　解析　〜ゲノム解析〜
 ## インストール
 ※Macを前提に記載しています。その他のOSを利用の場合は、リンクなど適宜変更して下さい。\
 ホームディレクトリに移動し、```PBL```というディレクトリを作成します。
@@ -28,6 +28,11 @@ unzip gatk-4.2.4.1.zip
 tar -zxvf sratoolkit.2.11.3-mac64.tar.gz
 tar -zxvf vcftools_0.1.13.tar.gz
 tar -jxvf bwa-0.7.17.tar.bz2
+```
+コンパイルします。
+```
+cd bwa-0.7.17
+make
 ```
 解析に必要なファイルをダウンロードします。
 ```
