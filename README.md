@@ -29,11 +29,15 @@ tar -zxvf sratoolkit.2.11.3-mac64.tar.gz
 tar -jxvf bwa-0.7.17.tar.bz2
 tar -jxvf samtools-1.14.tar.bz2
 ```
-コンパイルします。
+bwaをコンパイルします。
 ```
 cd bwa-0.7.17
 make
 cd ..
+```
+Samtoolsをコンパイルします。
+```
+
 ```
 解析に必要なファイルをダウンロードします。
 ```
@@ -258,6 +262,12 @@ curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapi
 ./bwa-0.7.17/bwa mem -t 8 ./Homo_sapiens.GRCh38.dna.primary_assembly.fa ./Tumor_1_100K_trim_paired.fastq.gz ./Tumor_2_100K_trim_paired.fastq.gz > Tumor.sam
 ```
 - -t：スレッド数（使用するPC環境に合わせて設定して下さい。）
+
+```.sam```ファイルから```.bam```ファイルへ変換します。```.bam```ファイルはバイナリファイルのため、データサイズの縮小化と以降の解析作業の高速化させます。
+```
+./samtools-1.14/samtools sort -@ 8 -o ./Normal.bam ./Normal.sam
+./samtools-1.14/samtools sort -@ 8 -o ./Tumor.bam ./Tumor.sam
+```
 
 ## 6 マッピングデータから遺伝子ごとにリードのカウントデータを取得する
 マッピング結果であるSAMファイルからgeneごとまたはtranscriptごとにリードのカウント数を出力します。\
