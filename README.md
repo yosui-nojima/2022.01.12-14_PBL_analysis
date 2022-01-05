@@ -12,9 +12,9 @@ cd PBL
 curl -OL https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.11.3/sratoolkit.2.11.3-mac64.tar.gz
 curl -OL http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip
 curl -OL https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.17.tar.bz2
+curl -OL https://github.com/samtools/samtools/releases/download/1.14/samtools-1.14.tar.bz2
 curl -OL https://github.com/broadinstitute/gatk/releases/download/4.2.4.1/gatk-4.2.4.1.zip
 curl -OL https://github.com/broadinstitute/picard/releases/download/2.26.10/picard.jar
-curl -OL https://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz
 curl -OL https://s3.amazonaws.com/plink1-assets/plink_mac_20210606.zip
 ```
 圧縮ファイルを解凍します。
@@ -26,8 +26,8 @@ cd ..
 unzip Trimmomatic-0.39.zip
 unzip gatk-4.2.4.1.zip
 tar -zxvf sratoolkit.2.11.3-mac64.tar.gz
-tar -zxvf vcftools_0.1.13.tar.gz
 tar -jxvf bwa-0.7.17.tar.bz2
+tar -jxvf samtools-1.14.tar.bz2
 ```
 コンパイルします。
 ```
