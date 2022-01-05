@@ -42,7 +42,7 @@ curl -OL https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/Truseq_
 
 ## 使用データ
 下記のpaired-endでシーケンスされた２サンプルのデータを使用します。\
-今回のPBL用に公共データから１サンプル１０万リードランダムサンプリングしたものです。\
+今回は時間短縮のため、肺がん患者の肺検体でWESした公共データ（SRP114315）から正常部位、腫瘍部位１サンプルずつ取り出し、それぞれ１０万リードランダムサンプリングしたものです。\
 ダウンロードして作業ディレクトリに保存して下さい。\
 [sample1_1_100K.fastq.gz](https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/sample1_1_100K.fastq.gz)\
 [sample1_2_100K.fastq.gz](https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/sample1_2_100K.fastq.gz)\
@@ -245,19 +245,12 @@ curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapi
 ```
 
 ### 5-2 マッピング
-いよいよマッピングを行います。今回は時間短縮のため、１０万リードランダムサンプリングしたFASTQファイル（最初にダウンロードしたファイル）を5-1で作成したインデックス化したリファレンスゲノムにマッピングします。
+いよいよマッピングを行います。１０万リードランダムサンプリングしたFASTQファイル（最初にダウンロードしたファイル）を5-1で作成したインデックス化したリファレンスゲノムにマッピングします。
 ```
-~/hisat2-2.1.0/hisat2 -p 40 --dta -x ./GRCh38.101 -1 ./sample1_1_100K_trim_paired.fastq.gz -2 ../sample1_2_100K_trim_paired.fastq.gz -S sample1_hisat2.sam 2> sample1_hisat2_log.txt
+./bwa-0.7.17/bwa mem -t 8 ./Homo_sapiens.GRCh38.dna.primary_assembly.fa ./Normal_1_100K_trim_paired.fastq.gz ./Normal_2_100K_trim_paired.fastq.gz > Normal.sam
+./bwa-0.7.17/bwa mem -t 8 ./Homo_sapiens.GRCh38.dna.primary_assembly.fa ./Tumor_1_100K_trim_paired.fastq.gz ./Tumor_2_100K_trim_paired.fastq.gz > Tumor.sam
 ```
-- -p：スレッド数（使用するPC環境に合わせて設定して下さい。）
-- --dta：アセンブラーなど下流の解析ツールを使用する際のオプション。またメモリ使用量を改善する。
-- -x：インデックス化したリファレンスゲノムファイル
-- -1：FowardリードのFastqファイルを指定
-- -2：ReverseリードのFastqファイルを指定
-- -S：出力するSAMファイル名
-- 2>：標準エラー出力。Mapping rate等をテキストファイルとして出力する。
-
-※バッチ処理をする場合は前述のawkコマンドを使用して下さい。
+- -t：スレッド数（使用するPC環境に合わせて設定して下さい。）
 
 ## 6 マッピングデータから遺伝子ごとにリードのカウントデータを取得する
 マッピング結果であるSAMファイルからgeneごとまたはtranscriptごとにリードのカウント数を出力します。\
