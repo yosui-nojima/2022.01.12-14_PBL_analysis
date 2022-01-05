@@ -22,7 +22,7 @@ curl -OL https://s3.amazonaws.com/plink1-assets/plink_mac_20210606.zip
 mkdir plink
 cd plink
 unzip ../plink_mac_20210606.zip
-cd ~/PBL/
+cd ..
 unzip Trimmomatic-0.39.zip
 unzip gatk-4.2.4.1.zip
 tar -zxvf sratoolkit.2.11.3-mac64.tar.gz
