@@ -51,14 +51,7 @@ curl -OL https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/Truseq_
 下記のpaired-endでシーケンスされた２サンプルのデータを使用します。\
 肺がん患者の肺検体でWESした公共データ（[SRP114315](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP114315&o=acc_s%3Aa)）から正常部位、腫瘍部位１サンプルずつ取り出したものです。
 今回は時間短縮のため、それぞれ１０万リードランダムサンプリングしたファイルを用意しました。\
-下記コマンドでダウンロードして下さい。
-```
-curl -OL https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Normal_1_100K.fastq.gz
-curl -OL https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Normal_2_100K.fastq.gz
-curl -OL https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Tumor_1_100K.fastq.gz
-curl -OL https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Tumor_2_100K.fastq.gz
-```
-または、下記リンクからもダウンロード可能です。```PBL```ディレクトリに保存して下さい。\
+下記リンクからダウンロード可能です。```PBL```ディレクトリに保存して下さい。\
 [Normal_1_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Normal_1_100K.fastq.gz)\
 [Normal_2_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Normal_2_100K.fastq.gz)\
 [Tumor_1_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Tumor_1_100K.fastq.gz)\
