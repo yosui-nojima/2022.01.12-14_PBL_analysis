@@ -284,7 +284,7 @@ java -jar ./picard.jar CreateSequenceDictionary R=./Homo_sapiens.GRCh38.dna.prim
 - -R：参照ゲノムファイル
 - -O：出力Mファイル
 
-既知変異情報をもとに、塩基スコアを再計算します。
+[既知変異情報](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/)をもとに、塩基スコアを再計算します。
 ```
 ./gatk-4.2.4.1/gatk BaseRecalibrator -I ./Normal_MarkDuplicates.bam --known-sites ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5c.20130502.sites.vcf.gz -O ./BaseRecalibrator_Normal.table -R ./Homo_sapiens.GRCh38.dna.primary_assembly.fa
 ```
