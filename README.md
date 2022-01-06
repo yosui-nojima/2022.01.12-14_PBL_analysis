@@ -267,9 +267,8 @@ curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapi
 - -@：スレッド数（使用するPC環境に合わせて設定して下さい。）
 - -o：出力ファイル名を指定
 
-## 6 マッピングデータから遺伝子ごとにリードのカウントデータを取得する
-マッピング結果であるSAMファイルからgeneごとまたはtranscriptごとにリードのカウント数を出力します。\
-カウントデータの出力には[Subread package](http://subread.sourceforge.net/)に含まれる```featureCounts```というプログラムを使用します。
+## 6 マッピングデータの各種QC処理
+マッピング結果であるBAMファイルを入力データとして、Duplicate リード (全く同じゲノム位置の同じ配列のリード) をマークします。\
 ```
 ~/subread-2.0.1-MacOS-x86_64/bin/featureCounts -O -M -T 18 -p -t exon -g gene_id -a ./Homo_sapiens.GRCh38.101.gtf -o sample_count.txt sample*_hisat2.sam
 ```
