@@ -263,16 +263,22 @@ curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapi
 ## 6 マッピングデータの各種QC処理
 マッピング結果であるBAMファイルを入力データとして、Duplicate リード (全く同じゲノム位置の同じ配列のリード) をマークします。\
 ```
-~/subread-2.0.1-MacOS-x86_64/bin/featureCounts -O -M -T 18 -p -t exon -g gene_id -a ./Homo_sapiens.GRCh38.101.gtf -o sample_count.txt sample*_hisat2.sam
+./gatk-4.2.4.1/gatk MarkDuplicates -I ./Normal.bam -M ./metrics_Normal.txt -O ./Normal_MarkDuplicates.bam
+./gatk-4.2.4.1/gatk MarkDuplicates -I ./Tumor.bam -M ./metrics_Tumor.txt -O ./Tumor_MarkDuplicates.bam
 ```
-- -O：複数のfeatureで定義されている特定のゲノム領域にマッピングされたリードもカウントする
-- -M：マルチマッピングされたリードもカウントする
-- -T：スレッド数（使用するPC環境に合わせて設定して下さい。）
-- -p：paired-endの場合に指定（1リードペアを1カウントする。）
-- -t：GTFファイルのfeature領域（3カラム目、exon, gene, CDS等）を指定
-- -g：gene levelでカウントしたい場合は```gene_id```を、transcript levelでカウントしたい場合は```transcript_id```を指定する
-- -a：アノテーションファイル（GTFファイル等）を指定
-- -o：出力ファイル名を指定
+- -I：入力BAMファイル
+- -M：Duplicatesのmetrics情報を出力
+- -O：出力BAMファイル
+
+次に参照ゲノムファイルのインデックスファイルとディクショナリーファイルを作成します。これを行わないと後の解析でファイルを作ってから実行しろと怒られます。\
+インデックスファイルの作成。
+```
+./samtools-1.14/samtools faidx ./Homo_sapiens.GRCh38.dna.primary_assembly.fa
+```
+ディクショナリーファイルの作成
+```
+java -jar ./picard.jar CreateSequenceDictionary R=./Homo_sapiens.GRCh38.dna.primary_assembly.fa O=./Homo_sapiens.GRCh38.dna.primary_assembly.dict
+```
 
 遺伝子IDとカウント値のみを抽出します。
 ```
