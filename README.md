@@ -45,6 +45,7 @@ cd ..
 解析に必要なファイルをダウンロードします。
 ```
 curl -OL https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/Truseq_stranded_totalRNA_adapter.fa
+curl -OL ftp://ftp.1000genomes.ebi.ac.uk//vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz
 curl -OL http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.wgs.phase3_shapeit2_mvncall_integrated_v5c.20130502.sites.vcf.gz
 curl -OL http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.wgs.phase3_shapeit2_mvncall_integrated_v5c.20130502.sites.vcf.gz.tbi
 ```
@@ -243,14 +244,14 @@ curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapi
 4でダウンロードしたリファレンスゲノムファイルをインデックス化します。一般的にゲノムデータのサイズは大きくなりがちでありそのままでは処理時間がかかってしまうため、インデックス（目次）ファイルを作成して高速にアクセスできるようにします。\
 インデックス化に必要なプログラムは、多くの場合マッピングツールに含まれています。\
 ```
-./bwa-0.7.17/bwa index ~/PBL/Homo_sapiens.GRCh38.dna.primary_assembly.fa
+./bwa-0.7.17/bwa index ~/PBL/hs37d5.fa.gz
 ```
 
 ### 5-2 マッピング
 いよいよマッピングを行います。１０万リードランダムサンプリングしたFASTQファイル（最初にダウンロードしたファイル）を5-1で作成したインデックス化したリファレンスゲノムにマッピングします。
 ```
-./bwa-0.7.17/bwa mem -t 8 ./Homo_sapiens.GRCh38.dna.primary_assembly.fa ./Normal_1_100K_trim_paired.fastq.gz ./Normal_2_100K_trim_paired.fastq.gz > Normal.sam
-./bwa-0.7.17/bwa mem -t 8 ./Homo_sapiens.GRCh38.dna.primary_assembly.fa ./Tumor_1_100K_trim_paired.fastq.gz ./Tumor_2_100K_trim_paired.fastq.gz > Tumor.sam
+./bwa-0.7.17/bwa mem -t 8 ./hs37d5.fa.gz ./Normal_1_100K_trim_paired.fastq.gz ./Normal_2_100K_trim_paired.fastq.gz > Normal.sam
+./bwa-0.7.17/bwa mem -t 8 ./hs37d5.fa.gz ./Tumor_1_100K_trim_paired.fastq.gz ./Tumor_2_100K_trim_paired.fastq.gz > Tumor.sam
 ```
 - -t：スレッド数（使用するPC環境に合わせて設定して下さい。）
 
@@ -275,18 +276,18 @@ curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapi
 次に参照ゲノムファイルのインデックスファイルとディクショナリーファイルを作成します。これを行わないと後の解析でファイルを作ってから実行しろと怒られます。\
 インデックスファイルの作成。
 ```
-./samtools-1.14/samtools faidx ./Homo_sapiens.GRCh38.dna.primary_assembly.fa
+./samtools-1.14/samtools faidx ./hs37d5.fa.gz
 ```
 ディクショナリーファイルの作成
 ```
-java -jar ./picard.jar CreateSequenceDictionary R=./Homo_sapiens.GRCh38.dna.primary_assembly.fa O=./Homo_sapiens.GRCh38.dna.primary_assembly.dict
+java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.fa.gz.dict
 ```
 - -R：参照ゲノムファイル
 - -O：出力Mファイル
 
 [既知変異情報](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/)をもとに、塩基スコアを再計算します。
 ```
-./gatk-4.2.4.1/gatk BaseRecalibrator -I ./Normal_MarkDuplicates.bam --known-sites ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5c.20130502.sites.vcf.gz -O ./BaseRecalibrator_Normal.table -R ./Homo_sapiens.GRCh38.dna.primary_assembly.fa
+./gatk-4.2.4.1/gatk BaseRecalibrator -I ./Normal_MarkDuplicates.bam --known-sites ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5c.20130502.sites.vcf.gz -O ./BaseRecalibrator_Normal.table -R ./hs37d5.fa.gz
 ```
 - -I：入力BAMファイル
 - --known-sites：既知変異情報ファイル
