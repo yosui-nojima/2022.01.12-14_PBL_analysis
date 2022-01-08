@@ -52,10 +52,14 @@ curl -OL http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.wgs.phas
 
 ## 使用データ
 下記のpaired-endでシーケンスされた２サンプルのデータを使用します。\
-```
-curl -OL https://storage.googleapis.com/gatk-test-data/wgs_fastq/NA12878_20k/H06HDADXX130110.1.ATCACGAT.20k_reads_1.fastq
-curl -OL https://storage.googleapis.com/gatk-test-data/wgs_fastq/NA12878_20k/H06HDADXX130110.1.ATCACGAT.20k_reads_2.fastq
-```
+下記のpaired-endでシーケンスされた２サンプルのデータを使用します。\
+肺がん患者の肺検体でWESした公共データ（[SRP114315](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP114315&o=acc_s%3Aa)）から正常部位、腫瘍部位１サンプルずつ取り出したものです。
+今回は時間短縮のため、それぞれ１０万リードランダムサンプリングしたファイルを用意しました。\
+下記リンクからダウンロード可能です。```PBL```ディレクトリに保存して下さい。\
+[Normal_1_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Normal_1_100K.fastq.gz)\
+[Normal_2_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Normal_2_100K.fastq.gz)\
+[Tumor_1_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Tumor_1_100K.fastq.gz)\
+[Tumor_2_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Tumor_2_100K.fastq.gz)
 
 ## 1-1 公共データベースの紹介
 ![20190605_metacore](https://user-images.githubusercontent.com/85273234/144177090-bbba1e07-08de-4acf-bf6f-b7395a1e104d.jpg)
