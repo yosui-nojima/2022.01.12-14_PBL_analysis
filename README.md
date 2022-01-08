@@ -286,12 +286,28 @@ java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.fa.g
 - -R：参照ゲノムファイル
 - -O：出力Mファイル
 
-[既知変異情報](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/)をもとに、塩基スコアを再計算します。
+全てのリードにsingle new read-groupを割り当てます。１０万リードという極端に低いカバレッジで実行しているため、この操作が必要になります。十分なカバレジのあるWGSデータの解析の際には必要でない場合があります。
 ```
-./gatk-4.2.4.1/gatk BaseRecalibrator -I ./Normal_MarkDuplicates.bam --known-sites ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5c.20130502.sites.vcf.gz -O ./BaseRecalibrator_Normal.table -R ./hs37d5.fa.gz
+java -jar picard.jar AddOrReplaceReadGroups I=Normal_MarkDuplicates.bam O=Normal_MarkDuplicates_AddOrReplaceReadGroups.bam RGID=4 RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=20
+java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_MarkDuplicates_AddOrReplaceReadGroups.bam RGID=4 RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=20
+```
+
+既知変異情報をもとに、塩基スコアを再計算します。
+```
+./gatk-4.2.4.1/gatk BaseRecalibrator -I ./Normal_MarkDuplicates_AddOrReplaceReadGroups.bam --known-sites ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -O ./BaseRecalibrator_Normal.table -R ./hs37d5.fa.gz
+./gatk-4.2.4.1/gatk BaseRecalibrator -I ./Tumor_MarkDuplicates_AddOrReplaceReadGroups.bam --known-sites ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -O ./BaseRecalibrator_Tumor.table -R ./hs37d5.fa.gz
 ```
 - -I：入力BAMファイル
 - --known-sites：既知変異情報ファイル
 - -O：出力ファイル
 - -R：参照ゲノムファイル
 
+```
+./gatk-4.2.4.1/gatk ApplyBQSR -I ./Normal_MarkDuplicates_AddOrReplaceReadGroups.bam -bqsr ./BaseRecalibrator_Normal.table -O ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam
+./gatk-4.2.4.1/gatk ApplyBQSR -I ./Tumor_MarkDuplicates_AddOrReplaceReadGroups.bam -bqsr ./BaseRecalibrator_Tumor.table -O ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam 
+```
+
+```
+./gatk-4.2.4.1/gatk HaplotypeCaller -I ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -O ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.bam -ERC GVCF -R ./hs37d5.fa.gz
+./gatk-4.2.4.1/gatk HaplotypeCaller -I ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -O ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.bam -ERC GVCF -R ./hs37d5.fa.gz
+```
