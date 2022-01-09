@@ -348,11 +348,11 @@ java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_SNP_filtered_passed
 ```
 
 ```
-java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed.vcf.gz > ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_annotated.g.vcf
+java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1.vcf.gz > ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1_annotated.vcf
 ```
 ```
-grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_annotated.g.vcf | cut -f1,2,3,4,5,10,11 > c12345.txt
-grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_annotated.g.vcf | cut -f8 | cut -d'|' -f4,8 | tr '|' '\t' > gene_region.txt
+grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1_annotated.vcf | cut -f1,2,3,4,5,10,11 > c12345.txt
+grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1_annotated.vcf | cut -f8 | cut -d'|' -f4,8 | tr '|' '\t' > gene_region.txt
 paste c12345.txt gene_region.txt > combine_GenotypeGVCFs_SNP_filtered_passed_annotated_extracted.txt
 rm -rf c12345.txt gene_region.txt
 ```
