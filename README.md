@@ -16,6 +16,7 @@ curl -OL https://github.com/samtools/samtools/releases/download/1.14/samtools-1.
 curl -OL https://github.com/broadinstitute/gatk/releases/download/4.2.4.1/gatk-4.2.4.1.zip
 curl -OL https://github.com/broadinstitute/picard/releases/download/2.26.10/picard.jar
 curl -OL https://s3.amazonaws.com/plink1-assets/plink_mac_20210606.zip
+curl -OL http://faculty.washington.edu/browning/beagle/beagle.28Jun21.220.jar
 curl -OL https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip
 ```
 圧縮ファイルを解凍します。
@@ -44,12 +45,16 @@ cd samtools-1.14
 make
 cd ..
 ```
-解析に必要なファイルをダウンロードします。
+解析に必要なファイルをダウンロード、解凍します。
 ```
 curl -OL https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/Truseq_stranded_totalRNA_adapter.fa
 curl -OL ftp://ftp.1000genomes.ebi.ac.uk//vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz
 curl -OL https://zenodo.org/record/3359882/files/ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz
 curl -OL https://zenodo.org/record/3359882/files/ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz.tbi
+curl -OL http://bochet.gcc.biostat.washington.edu/beagle/genetic_maps/plink.GRCh37.map.zip
+unzip plink.GRCh37.map.zip
+curl -OL http://bochet.gcc.biostat.washington.edu/beagle/1000_Genomes_phase3_v5a/b37.vcf/chr1.1kg.phase3.v5a.vcf.gz
+curl -OL http://bochet.gcc.biostat.washington.edu/beagle/1000_Genomes_phase3_v5a/b37.vcf/chr1.1kg.phase3.v5a.vcf.gz.tbi
 ```
 
 ## 使用データ
@@ -346,4 +351,7 @@ grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_annotated.g.vcf | cut -
 grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_annotated.g.vcf | cut -f8 | cut -d'|' -f4,8 | tr '|' '\t' > gene_region.txt
 paste c12345.txt gene_region.txt > combine_GenotypeGVCFs_SNP_filtered_passed_annotated_extracted.txt
 rm -rf c12345.txt gene_region.txt
+```
+```
+java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz' out='combine_GenotypeGVCFs_SNP_filtered_passed_imputed' map='plink.chr1.GRCh37.map' ref='chr1.1kg.phase3.v5a.vcf.gz' chrom='1'
 ```
