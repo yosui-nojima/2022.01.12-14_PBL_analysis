@@ -324,17 +324,6 @@ java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_M
 ```
 - --select-type-to-include：```INDEL```と指定すると、INDELのみ抽出されます。
 
-
-```
-./gatk-4.2.4.1/gatk VariantFiltration -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_SNPs.g.vcf.gz -O combine_GenotypeGVCFs_SNP_filtered.g.vcf.gz \
--filter "QD < 2.0" --filter-name "QD2" \       
-    -filter "QUAL < 30.0" --filter-name "QUAL30" \
-    -filter "SOR > 3.0" --filter-name "SOR3" \
-    -filter "FS > 60.0" --filter-name "FS60" \
-    -filter "MQ < 40.0" --filter-name "MQ40" \
-    -filter "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" \
-    -filter "ReadPosRankSum < -8.0" --filter-name "ReadPosRankSum-8"
-```
 ```
 ./gatk-4.2.4.1/gatk VariantFiltration -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_SNPs.g.vcf.gz -O combine_GenotypeGVCFs_SNP_filtered.g.vcf.gz \
 -filter "QD < 2.0" --filter-name "QD2" \
@@ -344,4 +333,7 @@ java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_M
 -filter "MQ < 40.0" --filter-name "MQ40" \
 -filter "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" \
 -filter "ReadPosRankSum < -8.0" --filter-name "ReadPosRankSum-8"
+```
+```
+./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_SNP_filtered.g.vcf.gz -O ./combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz -select 'vc.isNotFiltered()'
 ```
