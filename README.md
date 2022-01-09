@@ -16,6 +16,7 @@ curl -OL https://github.com/samtools/samtools/releases/download/1.14/samtools-1.
 curl -OL https://github.com/broadinstitute/gatk/releases/download/4.2.4.1/gatk-4.2.4.1.zip
 curl -OL https://github.com/broadinstitute/picard/releases/download/2.26.10/picard.jar
 curl -OL https://s3.amazonaws.com/plink1-assets/plink_mac_20210606.zip
+curl -OL https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip
 ```
 圧縮ファイルを解凍します。
 ```
@@ -25,6 +26,7 @@ unzip ../plink_mac_20210606.zip
 cd ..
 unzip Trimmomatic-0.39.zip
 unzip gatk-4.2.4.1.zip
+unzip snpEff_latest_core.zip 
 tar -zxvf sratoolkit.2.11.3-mac64.tar.gz
 tar -jxvf bwa-0.7.17.tar.bz2
 tar -jxvf samtools-1.14.tar.bz2
@@ -316,4 +318,20 @@ java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_M
 ```
 ```
 ./gatk-4.2.4.1/gatk GenotypeGVCFs -R ./hs37d5.fa.gz -D ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -V ./combine.g.vcf.gz -O ./combine_GenotypeGVCFs.g.vcf.gz
+```
+```
+./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V combine_GenotypeGVCFs.g.vcf.gz --select-type-to-include SNP -O combine_GenotypeGVCFs_SNPs.g.vcf.gz
+```
+- --select-type-to-include：```INDEL```と指定すると、INDELのみ抽出されます。
+
+
+```
+./gatk-4.2.4.1/gatk VariantFiltration -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_SNPs.g.vcf.gz -O combine_GenotypeGVCFs_SNP_filtered.g.vcf.gz \
+-filter "QD < 2.0" --filter-name "QD2" \       
+    -filter "QUAL < 30.0" --filter-name "QUAL30" \
+    -filter "SOR > 3.0" --filter-name "SOR3" \
+    -filter "FS > 60.0" --filter-name "FS60" \
+    -filter "MQ < 40.0" --filter-name "MQ40" \
+    -filter "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" \
+    -filter "ReadPosRankSum < -8.0" --filter-name "ReadPosRankSum-8"
 ```
