@@ -286,10 +286,10 @@ java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.fa.g
 - -R：参照ゲノムファイル
 - -O：出力Mファイル
 
-全てのリードにsingle new read-groupを割り当てます。１０万リードという極端に低いカバレッジで実行しているため、この操作が必要になります。十分なカバレジのあるWGSデータの解析の際には必要でない場合があります。
+Normal、Tumorそれぞれにsample名を入力します。RGSMに入力した文字列が最終的なサンプル名として扱われます。
 ```
-java -jar picard.jar AddOrReplaceReadGroups I=Normal_MarkDuplicates.bam O=Normal_MarkDuplicates_AddOrReplaceReadGroups.bam RGID=4 RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=20
-java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_MarkDuplicates_AddOrReplaceReadGroups.bam RGID=4 RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=20
+java -jar picard.jar AddOrReplaceReadGroups I=Normal_MarkDuplicates.bam O=Normal_MarkDuplicates_AddOrReplaceReadGroups.bam RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=Normal RGID=Normal
+java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_MarkDuplicates_AddOrReplaceReadGroups.bam RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=Tumor RGID=Tumor
 ```
 
 既知変異情報をもとに、塩基スコアを再計算します。
