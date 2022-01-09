@@ -337,3 +337,6 @@ java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_M
 ```
 ./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_SNP_filtered.g.vcf.gz -O ./combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz -select 'vc.isNotFiltered()'
 ```
+```
+java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz > ./combine_GenotypeGVCFs_SNP_filtered_passed_annotated.g.vcf
+```
