@@ -344,14 +344,15 @@ https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-va
 ./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_SNP_filtered.g.vcf.gz -O ./combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz -select 'vc.isNotFiltered()'
 ```
 ```
-java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz > ./combine_GenotypeGVCFs_SNP_filtered_passed_annotated.g.vcf
+java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz' out='combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1' map='plink.chr1.GRCh37.map' ref='chr1.1kg.phase3.v5a.vcf.gz' chrom='1'
+```
+
+```
+java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed.vcf.gz > ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_annotated.g.vcf
 ```
 ```
-grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_annotated.g.vcf | cut -f1,2,3,4,5,10,11 > c12345.txt
-grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_annotated.g.vcf | cut -f8 | cut -d'|' -f4,8 | tr '|' '\t' > gene_region.txt
+grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_annotated.g.vcf | cut -f1,2,3,4,5,10,11 > c12345.txt
+grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_annotated.g.vcf | cut -f8 | cut -d'|' -f4,8 | tr '|' '\t' > gene_region.txt
 paste c12345.txt gene_region.txt > combine_GenotypeGVCFs_SNP_filtered_passed_annotated_extracted.txt
 rm -rf c12345.txt gene_region.txt
-```
-```
-java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz' out='combine_GenotypeGVCFs_SNP_filtered_passed_imputed' map='plink.chr1.GRCh37.map' ref='chr1.1kg.phase3.v5a.vcf.gz' chrom='1'
 ```
