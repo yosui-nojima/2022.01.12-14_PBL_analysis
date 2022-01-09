@@ -324,7 +324,7 @@ java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_M
 ```
 - --select-type-to-include：```INDEL```と指定すると、INDELのみ抽出されます。
 
-https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by- hard-filtering
+https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering
 ```
 ./gatk-4.2.4.1/gatk VariantFiltration -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_SNPs.g.vcf.gz -O combine_GenotypeGVCFs_SNP_filtered.g.vcf.gz \
 -filter "QD < 2.0" --filter-name "QD2" \
