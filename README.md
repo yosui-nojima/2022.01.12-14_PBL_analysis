@@ -336,7 +336,10 @@ java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.dict
 )\
 [Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz.tbi](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz.tbi
 )
-
+Macのデフォルト設定では```Download```ディレクトリに保存されますので、```PBL```ディレクトリに移動させます。
+```
+mv ~/Downloads/*_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz* ~/PBL/
+```
 
 ```
 ./gatk-4.2.4.1/gatk CombineGVCFs -R ./hs37d5.fa.gz -D ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -V ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -V ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -O ./combine.g.vcf.gz
