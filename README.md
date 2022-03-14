@@ -333,6 +333,7 @@ java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.dict
 ```
 ./gatk-4.2.4.1/gatk GenotypeGVCFs -R ./hs37d5.fa.gz -D ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -V ./combine.g.vcf.gz -O ./combine_GenotypeGVCFs.g.vcf.gz
 ```
+SNP、INDELを別々に解析したい場合は下記を実行します。（本チュートリアルでは区別せず下流解析に進みます。）
 ```
 ./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V combine_GenotypeGVCFs.g.vcf.gz --select-type-to-include SNP -O combine_GenotypeGVCFs_SNPs.g.vcf.gz
 ```
@@ -340,7 +341,7 @@ java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.dict
 
 https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering
 ```
-./gatk-4.2.4.1/gatk VariantFiltration -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_SNPs.g.vcf.gz -O combine_GenotypeGVCFs_SNP_filtered.g.vcf.gz \
+./gatk-4.2.4.1/gatk VariantFiltration -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs.g.vcf.gz -O combine_GenotypeGVCFs_filtered.g.vcf.gz \
 -filter "QD < 2.0" --filter-name "QD2" \
 -filter "QUAL < 30.0" --filter-name "QUAL30" \
 -filter "SOR > 3.0" --filter-name "SOR3" \
@@ -350,14 +351,14 @@ https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-va
 -filter "ReadPosRankSum < -8.0" --filter-name "ReadPosRankSum-8"
 ```
 ```
-./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_SNP_filtered.g.vcf.gz -O ./combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz -select 'vc.isNotFiltered()'
+./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_filtered.g.vcf.gz -O ./combine_GenotypeGVCFs_filtered_passed.g.vcf.gz -select 'vc.isNotFiltered()'
 ```
 ```
-java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_SNP_filtered_passed.g.vcf.gz' out='combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1' map='plink.chr1.GRCh37.map' ref='chr1.1kg.phase3.v5a.vcf.gz' chrom='1'
+java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_filtered_passed.g.vcf.gz' out='combine_GenotypeGVCFs_filtered_passed_imputed_chr1' map='plink.chr1.GRCh37.map' ref='chr1.1kg.phase3.v5a.vcf.gz' chrom='1'
 ```
 
 ```
-java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1.vcf.gz > ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1_annotated.vcf
+java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1.vcf.gz > ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf
 ```
 ```
 grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1_annotated.vcf | cut -f1,2,3,4,5,10,11 > c12345.txt
