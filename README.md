@@ -62,11 +62,16 @@ curl -OL http://bochet.gcc.biostat.washington.edu/beagle/1000_Genomes_phase3_v5a
 下記のpaired-endでシーケンスされた２サンプルのデータを使用します。\
 肺がん患者の肺検体でWESした公共データ（[SRP114315](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP114315&o=acc_s%3Aa)）から正常部位、腫瘍部位１サンプルずつ取り出したものです。
 今回は時間短縮のため、それぞれ１０万リードランダムサンプリングしたファイルを用意しました。\
-下記リンクからダウンロード可能です。```PBL```ディレクトリに保存して下さい。\
+下記リンクからダウンロード可能です。\
 [Normal_1_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Normal_1_100K.fastq.gz)\
 [Normal_2_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Normal_2_100K.fastq.gz)\
 [Tumor_1_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Tumor_1_100K.fastq.gz)\
 [Tumor_2_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Tumor_2_100K.fastq.gz)
+Macのデフォルト設定では```Download```ディレクトリに保存されますので、```PBL```ディレクトリに移動させます。\
+```
+mv ~/Download/*_100K.fastq.gz ~/PBL/
+```
+
 
 ## 1-1 公共データベースの紹介
 ![20190605_metacore](https://user-images.githubusercontent.com/85273234/144177090-bbba1e07-08de-4acf-bf6f-b7395a1e104d.jpg)
