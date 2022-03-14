@@ -247,8 +247,8 @@ curl -OL ftp://ftp.1000genomes.ebi.ac.uk//vol1/ftp/technical/reference/phase2_re
 ```
 上記の参照配列ファイルの場所は下記の通りです。
 <img width="1790" alt="スクリーンショット 2022-03-14 20 10 51" src="https://user-images.githubusercontent.com/85273234/158165825-22a59b9c-f522-4e90-bb7e-b29cca52724b.png">
-- まずは1000 genomesトップページの[『Data』](https://www.internationalgenome.org/data)をクリック。
-- 『FTP site』(http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/)をクリック
+- まずは1000 genomesトップページの[Data](https://www.internationalgenome.org/data)をクリック。
+- [FTP site](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/)をクリック
 - ```technical/```をクリック
 - ```reference/```をクリック
 - ```phase2_reference_assembly_sequence/```をクリック
