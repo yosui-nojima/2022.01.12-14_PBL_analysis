@@ -290,6 +290,12 @@ curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapi
 - -M：Duplicatesのmetrics情報を出力
 - -O：出力BAMファイル
 
+Normal、Tumorそれぞれにsample名を入力します。RGSMに入力した文字列が最終的なサンプル名として扱われます。
+```
+java -jar picard.jar AddOrReplaceReadGroups I=Normal_MarkDuplicates.bam O=Normal_MarkDuplicates_AddOrReplaceReadGroups.bam RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=Normal RGID=Normal
+java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_MarkDuplicates_AddOrReplaceReadGroups.bam RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=Tumor RGID=Tumor
+```
+
 次に参照ゲノムファイルのインデックスファイルとディクショナリーファイルを作成します。これを行わないと後の解析でファイルを作ってから実行しろと怒られます。\
 インデックスファイルの作成。
 ```
@@ -301,12 +307,6 @@ java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.fa.g
 ```
 - -R：参照ゲノムファイル
 - -O：出力Mファイル
-
-Normal、Tumorそれぞれにsample名を入力します。RGSMに入力した文字列が最終的なサンプル名として扱われます。
-```
-java -jar picard.jar AddOrReplaceReadGroups I=Normal_MarkDuplicates.bam O=Normal_MarkDuplicates_AddOrReplaceReadGroups.bam RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=Normal RGID=Normal
-java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_MarkDuplicates_AddOrReplaceReadGroups.bam RGLB=lib1 RGPL=ILLUMINA RGPU=unit1 RGSM=Tumor RGID=Tumor
-```
 
 既知変異情報をもとに、塩基スコアを再計算します。
 ```
