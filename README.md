@@ -69,7 +69,7 @@ curl -OL http://bochet.gcc.biostat.washington.edu/beagle/1000_Genomes_phase3_v5a
 [Tumor_2_100K.fastq.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Tumor_2_100K.fastq.gz)\
 Macのデフォルト設定では```Download```ディレクトリに保存されますので、```PBL```ディレクトリに移動させます。
 ```
-mv ~/Download/*_100K.fastq.gz ~/PBL/
+mv ~/Downloads/*_100K.fastq.gz ~/PBL/
 ```
 
 
