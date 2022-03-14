@@ -322,7 +322,8 @@ java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.dict
 ./gatk-4.2.4.1/gatk ApplyBQSR -I ./Normal_MarkDuplicates_AddOrReplaceReadGroups.bam -bqsr ./BaseRecalibrator_Normal.table -O ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam
 ./gatk-4.2.4.1/gatk ApplyBQSR -I ./Tumor_MarkDuplicates_AddOrReplaceReadGroups.bam -bqsr ./BaseRecalibrator_Tumor.table -O ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam 
 ```
-
+## 7 QC処理後データのvariant calling
+いよいよ変異検出を行います。本PBLではGATKの```HaplotypeCaller```を使います。
 ```
 ./gatk-4.2.4.1/gatk HaplotypeCaller -I ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -O ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -ERC GVCF -R ./hs37d5.fa.gz
 ./gatk-4.2.4.1/gatk HaplotypeCaller -I ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -O ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -ERC GVCF -R ./hs37d5.fa.gz
@@ -340,10 +341,11 @@ Macのデフォルト設定では```Download```ディレクトリに保存され
 ```
 mv ~/Downloads/*_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz* ~/PBL/
 ```
-
+複数のVCFファイルを１つのVCFファイル統合します。
 ```
 ./gatk-4.2.4.1/gatk CombineGVCFs -R ./hs37d5.fa.gz -D ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -V ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -V ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -O ./combine.g.vcf.gz
 ```
+
 ```
 ./gatk-4.2.4.1/gatk GenotypeGVCFs -R ./hs37d5.fa.gz -D ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -V ./combine.g.vcf.gz -O ./combine_GenotypeGVCFs.g.vcf.gz
 ```
