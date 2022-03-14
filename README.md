@@ -248,6 +248,7 @@ Duplidate readsの含まれている数を示しています。
 - 次のページの右側『Gene annotation』内の『Download FASTA』をクリック。
 - ftpサイトの『dna』をクリックすると複数のファイルが閲覧できます。このうち、『Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz』を使用します。
 - または、下記のコマンドでもダウンロード可能です。いずれの場合も```PBL```ディレクトリに入れてください。またいずれもダウンロードにはかなり時間がかかります。がん研究会のNASに格納しているファイルを利用して下さい。\
+
 **※かなり時間かかります。**
 ```
 curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
