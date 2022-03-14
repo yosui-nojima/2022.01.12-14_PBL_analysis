@@ -303,7 +303,7 @@ java -jar picard.jar AddOrReplaceReadGroups I=Tumor_MarkDuplicates.bam O=Tumor_M
 ```
 ディクショナリーファイルの作成
 ```
-java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.fa.gz.dict
+java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.dict
 ```
 - -R：参照ゲノムファイル
 - -O：出力Mファイル
