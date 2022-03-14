@@ -241,18 +241,19 @@ Duplidate readsの含まれている数を示しています。
 
 ## 4 リファレンスゲノムファイル、アノテーションファイルの取得
 トリミングしたリードは全ゲノム配列が記載されたリファレンスゲノムファイルにマッピングします。\
-[Ensembl](https://www.ensembl.org/)は、様々な生物種のゲノム配列情報が格納されているデータベースです。\
-今回は、ここからヒトのリファレンスゲノムファイルとアノテーションファイル（遺伝子ごとにコードされている染色体と染色体内でのポジションが記載されたファイル）をダウンロードします。\
-<img width="1792" alt="スクリーンショット 2021-12-08 14 21 31" src="https://user-images.githubusercontent.com/85273234/145152855-ee648e1f-ae56-4e90-9a53-681ee6f0b079.png">
-- まずはEnsemblトップページの『Human』からをクリックします・
-- 次のページの右側『Gene annotation』内の『Download FASTA』をクリック。
-- ftpサイトの『dna』をクリックすると複数のファイルが閲覧できます。このうち、『Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz』を使用します。
-- または、下記のコマンドでもダウンロード可能です。いずれの場合も```PBL```ディレクトリに入れてください。またいずれもダウンロードにはかなり時間がかかります。がん研究会のNASに格納しているファイルを利用して下さい。
-
-**※かなり時間かかります。**
+[1000 genomes](https://www.internationalgenome.org/)で使用されている参照配列ファイルを取得します。
+下記コマンドでファイルをダウンロードします。
 ```
-curl -OL http://ftp.ensembl.org/pub/release-105/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+curl -OL ftp://ftp.1000genomes.ebi.ac.uk//vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz
 ```
+上記の参照配列ファイルの場所は下記の通りです。
+<img width="1790" alt="スクリーンショット 2022-03-14 20 10 51" src="https://user-images.githubusercontent.com/85273234/158165825-22a59b9c-f522-4e90-bb7e-b29cca52724b.png">
+- まずは1000 genomesトップページの[『Data』](https://www.internationalgenome.org/data)をクリック。
+- 『FTP site』(http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/)をクリック
+- ```technical/```をクリック
+- ```reference/```をクリック
+- ```phase2_reference_assembly_sequence/```をクリック
+- ```hs37d5.fa.gz```が参照配列のファイルです。
 
 ## 5 リファレンスゲノムへのマッピング
 ### 5-1 リファレンスゲノムファイルのインデックス化
