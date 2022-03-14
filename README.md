@@ -337,7 +337,7 @@ SNP、INDELを別々に解析したい場合は下記を実行します。（本
 ```
 ./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V combine_GenotypeGVCFs.g.vcf.gz --select-type-to-include SNP -O combine_GenotypeGVCFs_SNPs.g.vcf.gz
 ```
-- --select-type-to-include：```SNP```が、```INDEL```と指定するとINDELのみが抽出されます。
+- --select-type-to-include：```SNP```と指定するとSNPが、```INDEL```と指定するとINDELのみが抽出されます。
 
 https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering
 ```
