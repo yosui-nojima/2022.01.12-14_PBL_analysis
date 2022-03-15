@@ -435,6 +435,7 @@ java -jar ./snpEff/snpEff.jar databases | grep Homo_sapiens | cut -f1,2
 java -jar ./snpEff/snpEff.jar download -v GRCh37.75 -c ./snpEff/snpEff.config
 ```
 アノテーションを実行します。
+**※かなり時間かかります。**
 ```
 java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1.vcf.gz > ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf
 ```
