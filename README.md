@@ -369,7 +369,7 @@ mv ~/Downloads/*_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller
 - -D：既知変異情報
 - -R：参照ゲノムファイル
 
-SNP、INDELを別々に解析したい場合は下記を実行します。（本チュートリアルでは区別せず下流解析に進みます。）
+SNP、INDELを別々に解析したい場合は下記を実行します。（**※今回は実行しません。**）
 ```
 ./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V combine_GenotypeGVCFs.g.vcf.gz --select-type-to-include SNP -O combine_GenotypeGVCFs_SNPs.g.vcf.gz
 ```
@@ -416,6 +416,12 @@ java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_filtered_passed.g.v
 - map=：PLINK形式のcMユニットを含むgenetic mapsファイル
 - ref=：1000 Genomesプロジェクト（phase 3）の参照vcfファイル
 - chrom=：染色体番号
+複数の染色体の情報が必要な場合は、```chrom```を引数を変更し任意の染色体番号を入力し必要回数実行します。（**※今回は実行しません。**）
+実行して得られた複数のimputation済みファイルを以下で統合します。（**※今回は実行しません。**）
+```
+ls ./combine_GenotypeGVCFs_filtered_passed_imputed_chr* > ./all-chrom.list
+java -jar ./picard.jar MergeVcfs I=./all-chrom.list O=./combine_GenotypeGVCFs_filtered_passed_imputed_all-chr_MergeVcfs.vcf.gz R=./hs37d5.fa D=./hs37d5.dict
+```
 
 次に変異のポジションに対して、```snpEff```を用いてアノテーションを行います。
 まずは、```snpEff```の参照データをダウンロードします。
