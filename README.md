@@ -417,7 +417,7 @@ java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_filtered_passed.g.v
 - ref=：1000 Genomesプロジェクト（phase 3）の参照vcfファイル
 - chrom=：染色体番号
 
-変異のポジションに対して、```snpEff```を用いてアノテーションを行います。
+次に変異のポジションに対して、```snpEff```を用いてアノテーションを行います。
 まずは、```snpEff```の参照データをダウンロードします。
 ```Homo_sapiens```のデータのみ表示させます。
 ```
