@@ -440,8 +440,8 @@ java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_filtered_passed_
 ```
 
 ```
-grep ^\## -v ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf | cut -f1,2,3,4,5,10,11 > c12345.txt
-grep ^\## -v ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf | cut -f8 | cut -d'|' -f4,8 | tr '|' '\t' > gene_region.txt
-paste c12345.txt gene_region.txt > combine_GenotypeGVCFs_filtered_passed_annotated_extracted.txt
-rm -rf c12345.txt gene_region.txt
+grep ^\## -v ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf | cut -f1,2,3,4,5,10,11 > info1.txt
+grep ^\## -v ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf | cut -f8 | cut -d'|' -f4,8 | tr '|' '\t' > info2.txt
+paste info1.txt info2.txt > combine_GenotypeGVCFs_filtered_passed_annotated_extracted.txt
+rm -rf info1.txt info2.txt
 ```
