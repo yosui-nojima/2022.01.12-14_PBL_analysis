@@ -345,7 +345,7 @@ mv ~/Downloads/*_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller
 ```
 ./gatk-4.2.4.1/gatk CombineGVCFs -R ./hs37d5.fa.gz -D ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -V ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -V ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -O ./combine.g.vcf.gz
 ```
-
+ジェノタイピングを行います。
 ```
 ./gatk-4.2.4.1/gatk GenotypeGVCFs -R ./hs37d5.fa.gz -D ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -V ./combine.g.vcf.gz -O ./combine_GenotypeGVCFs.g.vcf.gz
 ```
@@ -355,6 +355,8 @@ SNP、INDELを別々に解析したい場合は下記を実行します。（本
 ```
 - --select-type-to-include：```SNP```と指定するとSNPが、```INDEL```と指定するとINDELのみが抽出されます。
 
+各QC値を用いて変異のフィルタリングを行います。
+フィルタリングの条件は下記を参照下さい。
 https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering
 ```
 ./gatk-4.2.4.1/gatk VariantFiltration -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs.g.vcf.gz -O combine_GenotypeGVCFs_filtered.g.vcf.gz \
