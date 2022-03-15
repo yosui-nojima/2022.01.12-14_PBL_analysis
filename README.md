@@ -438,7 +438,7 @@ java -jar ./snpEff/snpEff.jar download -v GRCh37.75 -c ./snpEff/snpEff.config
 ```
 java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1.vcf.gz > ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf
 ```
-
+そのままのファイルは少しbusyで見ずらいため、必要（と思われる）カラムのみ抽出したファイルを作成します。
 ```
 grep ^\## -v ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf | cut -f1,2,3,4,5,10,11 > info1.txt
 grep ^\## -v ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf | cut -f8 | cut -d'|' -f4,8 | tr '|' '\t' > info2.txt
