@@ -318,16 +318,26 @@ java -jar ./picard.jar CreateSequenceDictionary R=./hs37d5.fa.gz O=./hs37d5.dict
 - -O：出力ファイル
 - -R：参照ゲノムファイル
 
+計算結果を適用させます。
 ```
 ./gatk-4.2.4.1/gatk ApplyBQSR -I ./Normal_MarkDuplicates_AddOrReplaceReadGroups.bam -bqsr ./BaseRecalibrator_Normal.table -O ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam
 ./gatk-4.2.4.1/gatk ApplyBQSR -I ./Tumor_MarkDuplicates_AddOrReplaceReadGroups.bam -bqsr ./BaseRecalibrator_Tumor.table -O ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam 
 ```
+- -I：入力BAMファイル
+- -bqsr：BaseRecalibratorの出力ファイル
+- -O：出力ファイル
+
 ## 7 QC処理後データのvariant calling
 いよいよ変異検出を行います。本PBLではGATKの```HaplotypeCaller```を使います。
 ```
 ./gatk-4.2.4.1/gatk HaplotypeCaller -I ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -O ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -ERC GVCF -R ./hs37d5.fa.gz
 ./gatk-4.2.4.1/gatk HaplotypeCaller -I ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -O ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -ERC GVCF -R ./hs37d5.fa.gz
 ```
+- -I：入力BAMファイル
+- -O：出力ファイル
+- -ERC：出力モード
+- -R：参照ゲノムファイル
+
 ```HaplotypeCaller```はかなり時間がかかります。実行済みファイルを用意しましたので、下記からダウンロードして下流解析に進んで下さい。
 [Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz
 )\
@@ -345,14 +355,26 @@ mv ~/Downloads/*_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller
 ```
 ./gatk-4.2.4.1/gatk CombineGVCFs -R ./hs37d5.fa.gz -D ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -V ./Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -V ./Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz -O ./combine.g.vcf.gz
 ```
+- -V：入力VCFファイル
+- -O：出力VCFファイル
+- -D：既知変異情報
+- -R：参照ゲノムファイル
+
 ジェノタイピングを行います。
 ```
 ./gatk-4.2.4.1/gatk GenotypeGVCFs -R ./hs37d5.fa.gz -D ./ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz -V ./combine.g.vcf.gz -O ./combine_GenotypeGVCFs.g.vcf.gz
 ```
+- -V：入力VCFファイル
+- -O：出力VCFファイル
+- -R：参照ゲノムファイル
+
 SNP、INDELを別々に解析したい場合は下記を実行します。（本チュートリアルでは区別せず下流解析に進みます。）
 ```
 ./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V combine_GenotypeGVCFs.g.vcf.gz --select-type-to-include SNP -O combine_GenotypeGVCFs_SNPs.g.vcf.gz
 ```
+- -V：入力VCFファイル
+- -O：出力VCFファイル
+- -R：参照ゲノムファイル
 - --select-type-to-include：```SNP```と指定するとSNPが、```INDEL```と指定するとINDELのみが抽出されます。
 
 各QC値を用いて変異のフィルタリングを行います。
@@ -368,14 +390,31 @@ https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-va
 -filter "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" \
 -filter "ReadPosRankSum < -8.0" --filter-name "ReadPosRankSum-8"
 ```
+- -V：入力VCFファイル
+- -O：出力VCFファイル
+- -R：参照ゲノムファイル
+- filter：フィルタリング条件
+- --filter-name：VCFファイル内で表示するフィルタリング名
+- 
+
 上記のフィルタリング条件を満たした変異のみを抽出します。
 ```
 ./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_filtered.g.vcf.gz -O ./combine_GenotypeGVCFs_filtered_passed.g.vcf.gz -select 'vc.isNotFiltered()'
 ```
-```beagle``を用いてimputationを行います。今回は１番染色体の情報のみ用います。
+- -V：入力VCFファイル
+- -O：出力VCFファイル
+- -R：参照ゲノムファイル
+- -select：選択条件
+
+```beagle```を用いてimputationを行います。今回は１番染色体の情報のみ用います。
 ```
 java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_filtered_passed.g.vcf.gz' out='combine_GenotypeGVCFs_filtered_passed_imputed_chr1' map='plink.chr1.GRCh37.map' ref='chr1.1kg.phase3.v5a.vcf.gz' chrom='1'
 ```
+- gt=：入力VCFファイル
+- out=：出力VCFファイル
+- map=：参照ゲノムファイル
+- ref=：
+- chrom=：染色体番号
 
 ```
 java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1.vcf.gz > ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf
