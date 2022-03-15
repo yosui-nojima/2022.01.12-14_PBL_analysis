@@ -417,7 +417,7 @@ java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_filtered_passed.g.v
 - ref=：1000 Genomesプロジェクト（phase 3）の参照vcfファイル
 - chrom=：染色体番号
 
-複数の染色体の情報が必要な場合は、```chrom```を引数を変更し任意の染色体番号を入力し必要回数実行します。（**※今回は実行しません。**）\
+複数の染色体の情報が必要な場合は、```chrom```引数を変更し任意の染色体番号を入力して必要回数実行します。（**※今回は実行しません。**）\
 実行して得られた複数のimputation済みファイルを以下で統合します。（**※今回は実行しません。**）
 ```
 ls ./combine_GenotypeGVCFs_filtered_passed_imputed_chr* > ./all-chrom.list
