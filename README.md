@@ -366,6 +366,7 @@ mv ~/Downloads/*_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller
 ```
 - -V：入力VCFファイル
 - -O：出力VCFファイル
+- -D：既知変異情報
 - -R：参照ゲノムファイル
 
 SNP、INDELを別々に解析したい場合は下記を実行します。（本チュートリアルでは区別せず下流解析に進みます。）
