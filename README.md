@@ -240,7 +240,7 @@ Duplidate readsの含まれている数を示しています。
 
 ## 4 リファレンスゲノムファイル、アノテーションファイルの取得
 トリミングしたリードは全ゲノム配列が記載されたリファレンスゲノムファイルにマッピングします。\
-[1000 genomes](https://www.internationalgenome.org/)で使用されている参照配列ファイルを取得します。
+[1000 genomes](https://www.internationalgenome.org/)で使用されている参照配列ファイル（GRCh37）を取得します。
 下記コマンドでファイルをダウンロードします。
 ```
 curl -OL ftp://ftp.1000genomes.ebi.ac.uk//vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz
