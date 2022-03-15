@@ -368,9 +368,11 @@ https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-va
 -filter "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" \
 -filter "ReadPosRankSum < -8.0" --filter-name "ReadPosRankSum-8"
 ```
+上記のフィルタリング条件を満たした変異のみを抽出します。
 ```
 ./gatk-4.2.4.1/gatk SelectVariants -R ./hs37d5.fa.gz -V ./combine_GenotypeGVCFs_filtered.g.vcf.gz -O ./combine_GenotypeGVCFs_filtered_passed.g.vcf.gz -select 'vc.isNotFiltered()'
 ```
+```beagle``を用いてimputationを行います。今回は１番染色体の情報のみ用います。
 ```
 java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_filtered_passed.g.vcf.gz' out='combine_GenotypeGVCFs_filtered_passed_imputed_chr1' map='plink.chr1.GRCh37.map' ref='chr1.1kg.phase3.v5a.vcf.gz' chrom='1'
 ```
