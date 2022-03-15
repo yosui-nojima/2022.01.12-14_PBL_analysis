@@ -413,13 +413,24 @@ java -jar ./beagle.28Jun21.220.jar gt='combine_GenotypeGVCFs_filtered_passed.g.v
 ```
 - gt=：入力VCFファイル
 - out=：出力VCFファイル
-- map=：参照ゲノムファイル
-- ref=：
+- map=：PLINK形式のcMユニットを含むgenetic mapsファイル
+- ref=：1000 Genomesプロジェクト（phase 3）の参照vcfファイル
 - chrom=：染色体番号
 
+変異のポジションに対して、```snpEff```を用いてアノテーションを行います。
+まずは、```snpEff```の参照データをダウンロードします。
+```Homo_sapiens```のデータのみ表示させます。
+```
+java -jar ./snpEff/snpEff.jar databases | grep Homo_sapiens | cut -f1,2
+```
+今回は、```GRCh37```のバージョンのゲノムに対してマッピングしましたので、下記のデータをダウンロードします。
+```
+java -jar ./snpEff/snpEff.jar download -v GRCh37.75 -c ./snpEff/snpEff.config
+```
 ```
 java -jar ./snpEff/snpEff.jar GRCh37.87 ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1.vcf.gz > ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf
 ```
+
 ```
 grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1_annotated.vcf | cut -f1,2,3,4,5,10,11 > c12345.txt
 grep ^\## -v ./combine_GenotypeGVCFs_SNP_filtered_passed_imputed_chr1_annotated.vcf | cut -f8 | cut -d'|' -f4,8 | tr '|' '\t' > gene_region.txt
