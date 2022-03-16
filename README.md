@@ -15,9 +15,10 @@ curl -OL https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.17.tar.bz2
 curl -OL https://github.com/samtools/samtools/releases/download/1.14/samtools-1.14.tar.bz2
 curl -OL https://github.com/broadinstitute/gatk/releases/download/4.2.4.1/gatk-4.2.4.1.zip
 curl -OL https://github.com/broadinstitute/picard/releases/download/2.26.10/picard.jar
-curl -OL https://s3.amazonaws.com/plink1-assets/plink_mac_20210606.zip
 curl -OL http://faculty.washington.edu/browning/beagle/beagle.28Jun21.220.jar
 curl -OL https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip
+curl -OL https://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz
+curl -OL https://s3.amazonaws.com/plink1-assets/plink_mac_20210606.zip
 ```
 圧縮ファイルを解凍します。
 ```
@@ -29,6 +30,7 @@ unzip Trimmomatic-0.39.zip
 unzip gatk-4.2.4.1.zip
 unzip snpEff_latest_core.zip 
 tar -zxvf sratoolkit.2.11.3-mac64.tar.gz
+tar -zxvf vcftools_0.1.13.tar.gz
 tar -jxvf bwa-0.7.17.tar.bz2
 tar -jxvf samtools-1.14.tar.bz2
 ```
@@ -38,10 +40,16 @@ cd bwa-0.7.17
 make
 cd ..
 ```
-Samtoolsをコンパイルします。
+samtoolsをコンパイルします。
 ```
 cd samtools-1.14
 ./configure
+make
+cd ..
+```
+vcftoolsをコンパイルします。
+```
+cd vcftools_0.1.13
 make
 cd ..
 ```
