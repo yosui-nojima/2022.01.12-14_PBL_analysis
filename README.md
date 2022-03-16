@@ -458,6 +458,8 @@ rm -rf info1.txt info2.txt
 ```
 
 ## 8 関連解析と各種解析結果の表示（GWAS解析、生存時間解析、系統樹解析）
-
+```
+./vcftools_0.1.13/bin/vcftools --gzvcf ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1.vcf.gz --plink --out ./LC_Tumor_Normal
+```
 
 
