@@ -445,3 +445,8 @@ grep ^\## -v ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1_annotated.vcf 
 paste info1.txt info2.txt > combine_GenotypeGVCFs_filtered_passed_annotated_extracted.txt
 rm -rf info1.txt info2.txt
 ```
+
+## 8 関連解析と各種解析結果の表示（GWAS解析、生存時間解析、系統樹解析）
+
+
+
