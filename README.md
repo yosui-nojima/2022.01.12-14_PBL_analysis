@@ -476,11 +476,11 @@ GWAS解析用のツールは様々ありますが、今回は```plink```を用�
 ```
 ./plink/plink --noweb --file ./LC_Tumor_Normal --make-bed --out ./LC_Tumor_Normal
 ```
-次に各種QC値でフィルタリングを行います。今回は、マイナーアレル頻度（Minor Allele Frequency; MAF）とHandry-Weinberg平衡（HWE）検定の___P___値を用います。\
+次に各種QC値でフィルタリングを行います。今回は、マイナーアレル頻度（Minor Allele Frequency; MAF）とHandry-Weinberg平衡（HWE）検定の*P*値を用います。\
 アレル頻度が低いと得られる情報量が少なくなるため、MAFでフィルタリングする方法は一般的です。\
 また、Handry-Weinberg平衡とは、下記の条件が成立する下で、アレル頻度からジェノタイプ頻度を理論的に推定できることを指します。\
-そこで、ジェノタイプ頻度の推定値と実測値の乖離を調べるのがHWE検定です。HWE検定の___P___値もMAFと同様GWAS解析でよく用いられるフィルタリング指標の１つです。
-今回はMAFが5%以下、HWE検定の___P___値が10<sup>-6</sup>以下を除きます。
+そこで、ジェノタイプ頻度の推定値と実測値の乖離を調べるのがHWE検定です。HWE検定の*P*値もMAFと同様GWAS解析でよく用いられるフィルタリング指標の１つです。
+今回はMAFが5%以下、HWE検定の*P*値が10<sup>-6</sup>以下を除きます。
 ```
 ./plink/plink --noweb --bfile ./LC_Tumor_Normal --make-bed --out ./LC_Tumor_Normal_QC --maf 0.05 --hwe 0.000001
 ```
