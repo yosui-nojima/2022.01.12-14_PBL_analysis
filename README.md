@@ -361,6 +361,8 @@ mv ~/Downloads/*_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller
 ```
 Somatic mutationを検出する場合は、GATKの```Mutect2```を使います。（**※今回は実行しません。**）\
 ```Mutect2```では、腫瘍とそのペアとなる正常組織データを使用してgermline変異を除外します。
+また、```Mutect2```の使い方のより詳しい情報は下記に記載されています。\
+https://gatk.broadinstitute.org/hc/en-us/articles/360035531132--How-to-Call-somatic-mutations-using-GATK4-Mutect2
 ```
 ./gatk-4.2.4.1/gatk Mutect2 -R ./hs37d5.fa.gz -I Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -I Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -normal Normal -tumor Tumor -O unfiltered.vcf
 ./gatk-4.2.4.1/gatk FilterMutectCalls -R ./hs37d5.fa.gz -V ./unfiltered.vcf -O ./filtered.vcf
