@@ -359,8 +359,8 @@ Macのデフォルト設定では```Download```ディレクトリに保存され
 ```
 mv ~/Downloads/*_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR_HaplotypeCaller.g.vcf.gz* ~/PBL/
 ```
-Somatic mutationを検出する場合は、GATKの```Mutect2```を使います。\（**※今回は実行しません。**）
-``Mutect2```では、腫瘍とそのペアとなる正常組織データを使用してgermline変異を除外します。
+Somatic mutationを検出する場合は、GATKの```Mutect2```を使います。（**※今回は実行しません。**）\
+```Mutect2```では、腫瘍とそのペアとなる正常組織データを使用してgermline変異を除外します。
 ```
 ./gatk-4.2.4.1/gatk Mutect2 -R ./hs37d5.fa.gz -I Normal_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -I Tumor_MarkDuplicates_AddOrReplaceReadGroups_ApplyBQSR.bam -normal Normal -tumor Tumor -O unfiltered.vcf
 ./gatk-4.2.4.1/gatk FilterMutectCalls -R ./hs37d5.fa.gz -V ./unfiltered.vcf -O ./filtered.vcf
