@@ -502,12 +502,8 @@ HG00108	HG00108	2
 2列目：Sample ID\
 3列目：表現型（ケースは2、コントロールは1で示します。）（ケースが患者、コントロールが健常者など）
 
-今回の解析用の表現型ファイルを用意しましたので、下記コマンドでダウンロードして下さい。\
-https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/phenotype.txt.gz
-```
-mv ~/Downloads/phenotype.txt.gz ~/PBL/
-gunzip ./phenotype.txt.gz
-```
+今回のPBL用データは２サンプルのみで、これではロジスティック回帰分析ができませんので、下記のデータを使用させて頂きます。\
+
 ```
 ./plink/plink --noweb --bfile ./LC_Tumor_Normal --out ./LC_Tumor_Normal_QC_Pheno --pheno ./phenotype.txt --logistic --ci 0.95
 ```
