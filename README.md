@@ -508,5 +508,8 @@ https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/phenotype.txt.gz
 mv ~/Downloads/phenotype.txt.gz ~/PBL/
 gunzip ./phenotype.txt.gz
 ```
+```
+./plink/plink --noweb --bfile ./LC_Tumor_Normal --out ./LC_Tumor_Normal_QC_Pheno --pheno ./phenotype.txt --logistic --ci 0.95
+```
 
 
