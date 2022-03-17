@@ -366,7 +366,7 @@ Somatic mutationを検出する場合は、GATKの```Mutect2```を使います�
 ./gatk-4.2.4.1/gatk FilterMutectCalls -R ./hs37d5.fa.gz -V ./unfiltered.vcf -O ./filtered.vcf
 ```
 今回は、１０万リードランダムサンプリングしたデータを用いていますので、体細胞変異は検出されません。\
-以降の下流解析は、```HaplotypeCaller```の結果を用いて説明します。
+以降の下流解析は、```HaplotypeCaller```の結果を用います。
 
 複数のVCFファイルを１つのVCFファイル統合します。
 ```
@@ -466,8 +466,14 @@ rm -rf info1.txt info2.txt
 ```
 
 ## 8 関連解析と各種解析結果の表示（GWAS解析、生存時間解析、系統樹解析）
+GWAS解析用のツールは様々ありますが、今回は```plink```を用います。\
+
+まずは、```vcftools```を用いて```vcf```ファイルを```plink```に入力可能なデータ(```ped```|```map```形式ファイル)に変換します。
 ```
 ./vcftools_0.1.13/bin/vcftools --gzvcf ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1.vcf.gz --plink --out ./LC_Tumor_Normal
 ```
-
+ディスク容量節約および高速化のため、```plink```を使って```ped```|```map```形式ファイルからバイナリ形式で保存した```bed```|```bim```|```fam```形式ファイルに変換します。（バイナリ形式なのは```bed```ファイルのみで、```bim```|```fam```ファイルはテキストファイルです。）
+```
+./plink/plink --noweb --file ./LC_Tumor_Normal --make-bed --out ./LC_Tumor_Normal
+```
 
