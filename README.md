@@ -450,6 +450,10 @@ http://bochet.gcc.biostat.washington.edu/beagle/1000_Genomes_phase3_v5a/b37.vcf/
 ls ./combine_GenotypeGVCFs_filtered_passed_imputed_chr* > ./all-chrom.list
 java -jar ./picard.jar MergeVcfs I=./all-chrom.list O=./combine_GenotypeGVCFs_filtered_passed_imputed_all-chr_MergeVcfs.vcf.gz R=./hs37d5.fa D=./hs37d5.dict
 ```
+- I=：統合したいファイル名が記載されたリストファイル
+- O=：出力VCFファイル
+- R=：参照fastaファイル
+- D=：参照fastaファイルのディクショナリファイル
 
 次に変異のポジションに対して、```snpEff```を用いてアノテーションを行います。
 まずは、```snpEff```の参照データをダウンロードします。
@@ -460,6 +464,7 @@ java -jar ./snpEff/snpEff.jar databases | grep Homo_sapiens | cut -f1,2
 今回は、```GRCh37```のバージョンのゲノムに対してマッピングしましたので、下記のデータをダウンロードします。
 ```
 java -jar ./snpEff/snpEff.jar download -v GRCh37.75 -c ./snpEff/snpEff.config
+- -v：ダウンロードした参照ゲノムのバージョンを指定
 ```
 アノテーションを実行します。
 ```
@@ -480,10 +485,16 @@ GWAS解析用のツールは様々ありますが、今回は```plink```を用�
 ```
 ./vcftools_0.1.13/bin/vcftools --gzvcf ./combine_GenotypeGVCFs_filtered_passed_imputed_chr1.vcf.gz --plink --out ./LC_Tumor_Normal
 ```
+- --gzvcf：VCFファイルを指定
+- --plink：PLINKに入力可能な形式で出力するためのオプション
+- --out：出力ファイルの```.```より前のファイル名
+
 ディスク容量節約および高速化のため、```plink```を使って```ped```|```map```形式ファイルからバイナリ形式で保存した```bed```|```bim```|```fam```形式ファイルに変換します。（バイナリ形式なのは```bed```ファイルのみで、```bim```|```fam```ファイルはテキストファイルです。）
 ```
 ./plink/plink --noweb --file ./LC_Tumor_Normal --make-bed --out ./LC_Tumor_Normal
 ```
+
+
 次に各種QC値でフィルタリングを行います。今回は、マイナーアレル頻度（Minor Allele Frequency; MAF）とHandry-Weinberg平衡（HWE）検定の*P*値を用います。\
 アレル頻度が低いと得られる情報量が少なくなるため、MAFでフィルタリングする方法は一般的です。\
 また、HWEとは一定の条件が成立する下で、アレル頻度からジェノタイプ頻度を理論的に推定できることを指します。\
