@@ -536,6 +536,11 @@ HG00108	HG00108	2
 awk '{print $2"\t"$1"\t"$3"\t"$12}' ./1KG_EUR_QC_Pheno.assoc.logistic > ./1KG_EUR_QC_Pheno.assoc.logistic_mp.txt
 ```
 以降は、RStudioで実行します。\
+RおよびRStudioをまだインストールしていない場合は下記の通りにインストールして下さい。
+
+- 下記をクリックしてRをインストール
+[R ver. 4.1.3](https://cran.ism.ac.jp/bin/macosx/base/R-4.1.3.pkg)
+
 RStudioを立ち上げ、コンソールに下記を入力し実行します。
 ```
 library(ggrepel)
