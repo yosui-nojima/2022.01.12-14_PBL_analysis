@@ -522,7 +522,7 @@ HG00108	HG00108	2
 
 ロジスティック回帰分析を実行します。
 ```
-./plink/plink --noweb --bfile ./Hap3_EAS_MHC --out ./1KG_EUR_QC_Pheno --pheno ./phenotype1.txt --logistic --ci 0.95
+./plink/plink --noweb --bfile ./1KG_EUR_QC --out ./1KG_EUR_QC_Pheno --pheno ./phenotype1.txt --logistic --ci 0.95
 ```
 
 次に、マンハッタンプロットを描くための処理を行います。
