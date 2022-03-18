@@ -487,7 +487,21 @@ GWAS解析用のツールは様々ありますが、今回は```plink```を用�
 ./plink/plink --noweb --bfile ./LC_Tumor_Normal --make-bed --out ./LC_Tumor_Normal_QC --maf 0.05 --hwe 0.000001
 ```
 続いて、ロジスティック回帰分析を用いたケースコントロールGWASを行います。\
-これには、下記のような表現型ファイルが必要です。
+ロジスティック回帰分析には下記の書籍のデータを用います。
+
+![51GOs-DVaQL](https://user-images.githubusercontent.com/85273234/158938530-d78133b6-3f49-4151-b10d-b1223b0765cd.jpg)
+大阪大学医学研究科遺伝統計学教室の岡田 随象先生の本です。\
+遺伝統計学の初学者向けの書籍です。かなり完成度が高く、またわかりやすくまとめられています。本資料もこの書籍を参考作成しました。\
+
+**データは研究所のNASに格納してありますので、各自```PBL```ディレクトリに移動させて下さい。**\
+ロジスティック回帰分析には、以下の４つのファイルを用います。\
+```1KG_EUR_QC.bed```
+```1KG_EUR_QC.bim```
+```1KG_EUR_QC.fam```
+```phenotype1.txt```
+大本は、[1000 genomes project](https://www.internationalgenome.org/)のデータです。
+
+```phenotype1.txt```は表現型ファイルで、下記のような構成になっています。
 ```
 HG00096	HG00096	2
 HG00097	HG00097	1
@@ -499,17 +513,15 @@ HG00103	HG00103	1
 HG00104	HG00104	2
 HG00106	HG00106	1
 HG00108	HG00108	2
+   ︙      ︙   ︙
 ```
 1列目：Family ID\
 2列目：Sample ID\
 3列目：表現型（ケースは2、コントロールは1で示します。）（ケースが患者、コントロールが健常者など）
 
-今回のPBL用データは２サンプルのみでロジスティック回帰分析ができませんので、以降は下記の書籍で紹介されているデータを用います。\
-
-
-
+ロジスティック回帰分析を実行します。
 ```
-./plink/plink --noweb --bfile ./LC_Tumor_Normal --out ./LC_Tumor_Normal_QC_Pheno --pheno ./phenotype.txt --logistic --ci 0.95
+./plink/plink --noweb --bfile ./1KG_EUR_QC --out ./1KG_EUR_QC_Pheno --pheno ./phenotype1.txt --logistic --ci 0.95
 ```
 
 
