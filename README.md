@@ -555,7 +555,7 @@ ggplot(don, aes(x=BPcum, y=-log10(P))) +
   scale_x_continuous( label = axisdf$CHR, breaks= axisdf$center ) +
   scale_y_continuous(expand = c(0, 0), limits = c(0,10)) +
   geom_point(data=subset(don, is_annotate=="yes"), color="orange", size=2) +
-  geom_label_repel( data=subset(don, is_annotate=="yes"), aes(label=SNP), size=5, vjust = -1) +
+  geom_label_repel( data=subset(don, is_annotate=="yes"), aes(label=SNP), size=5) +
   theme_bw() +
   theme( 
     legend.position="none",
@@ -566,3 +566,6 @@ ggplot(don, aes(x=BPcum, y=-log10(P))) +
   geom_hline(yintercept = -log10(sig)) +
   xlab("Chromosome") + ylab(expression(paste(-log[10], "(", italic("P"), "-value)")))
 ```
+
+Significantなポジションは見つかりませんでしたが、上記のスクリプトでSignificantなポジションがあると下記のようにオレンジのポイントで示され、そのSNP IDが注釈されます。
+下記のファイルで実行すれば、
