@@ -538,15 +538,24 @@ awk '{print $2"\t"$1"\t"$3"\t"$12}' ./1KG_EUR_QC_Pheno.assoc.logistic > ./1KG_EU
 以降は、RStudioで実行します。\
 RおよびRStudioをまだインストールしていない場合は下記の通りにインストールして下さい。
 
-- 下記をクリックしてRをインストール
+- 下記をクリックしてRをインストール\
 [R ver. 4.1.3](https://cran.ism.ac.jp/bin/macosx/base/R-4.1.3.pkg)
+- 下記をクリックしてRStudioをインストール\
+[RStudio](https://download1.rstudio.org/desktop/macos/RStudio-2022.02.0-443.dmg)
 
+まずは必要なパッケージをインストールします。\
 RStudioを立ち上げ、コンソールに下記を入力し実行します。
+```
+install.packages(ggrepel)
+install.packages(ggplot2)
+install.packages(dplyr)
+```
+続いて、マンハッタンプロットを出力します。\
+下記をコンソールに入力し実行します。
 ```
 library(ggrepel)
 library(ggplot2)
 library(dplyr)
-
 
 gwasResults <- read.table("~/PBL/1KG_EUR_QC_Pheno.assoc.logistic_mp.txt", header = T)
 don <- gwasResults %>% 
