@@ -522,7 +522,47 @@ HG00108	HG00108	2
 
 ロジスティック回帰分析を実行します。
 ```
-./plink/plink --noweb --bfile ./1KG_EUR_QC --out ./1KG_EUR_QC_Pheno --pheno ./phenotype1.txt --logistic --ci 0.95
+./plink/plink --noweb --bfile ./Hap3_EAS_MHC --out ./1KG_EUR_QC_Pheno --pheno ./phenotype1.txt --logistic --ci 0.95
 ```
 
+次に、マンハッタンプロットを描くための処理を行います。
+```
+awk '{print $2"\t"$1"\t"$3"\t"$12}' ./1KG_EUR_QC_Pheno.assoc.logistic > ./1KG_EUR_QC_Pheno.assoc.logistic_mp.txt
+```
+以降は、RStudioで実行します。\
+RStudioを立ち上げ、コンソールに下記を入力し実行します。
+```
+library(ggrepel)
+library(ggplot2)
+library(dplyr)
 
+
+gwasResults <- read.table("~/PBL/1KG_EUR_QC_Pheno.assoc.logistic_mp.txt", header = T)
+don <- gwasResults %>% 
+  group_by(CHR) %>% 
+  summarise(chr_len=max(BP)) %>% 
+  mutate(tot=cumsum(as.numeric(chr_len))-chr_len) %>%
+  select(-chr_len) %>%
+  left_join(gwasResults, ., by=c("CHR"="CHR")) %>%
+  arrange(CHR, BP) %>%
+  mutate( BPcum=BP+tot) %>%
+  mutate( is_annotate=ifelse(-log10(P)>7.30103, "yes", "no")) 
+axisdf <- don %>% group_by(CHR) %>% summarize(center=( max(BPcum) + min(BPcum) ) / 2 )
+sig = 5e-8
+ggplot(don, aes(x=BPcum, y=-log10(P))) +
+  geom_point( aes(color=as.factor(CHR)), alpha=0.8, size=1.3) +
+  scale_color_manual(values = rep(c("pink", "skyblue"), 22)) +
+  scale_x_continuous( label = axisdf$CHR, breaks= axisdf$center ) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0,10)) +
+  geom_point(data=subset(don, is_annotate=="yes"), color="orange", size=2) +
+  geom_label_repel( data=subset(don, is_annotate=="yes"), aes(label=SNP), size=5, vjust = -1) +
+  theme_bw() +
+  theme( 
+    legend.position="none",
+    panel.border = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()
+  ) +
+  geom_hline(yintercept = -log10(sig)) +
+  xlab("Chromosome") + ylab(expression(paste(-log[10], "(", italic("P"), "-value)")))
+```
