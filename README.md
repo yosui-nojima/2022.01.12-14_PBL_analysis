@@ -4,7 +4,7 @@
 まずはターミナルを立ち上げます。\
 Finder > アプリケーション > ユーティリティ > ターミナル\
 下記のアイコンのアプリケーションをダブルクリックして立ち上げます。\
-![d94aa1c4979b25e9ffbda97fcbae219a](https://user-images.githubusercontent.com/85273234/158945610-372e2710-be42-4053-a37d-9c0a7965b9d3.png)
+![d94aa1c4979b25e9ffbda97fcbae219a](https://user-images.githubusercontent.com/85273234/158945610-372e2710-be42-4053-a37d-9c0a7965b9d3.png)\
 以降は、ターミナルでコマンドラインインターフェース（Command Line Interface; CLI）により各種解析を実行します。\
 基本的には、
 ホームディレクトリに移動し、```PBL```というディレクトリを作成します。
