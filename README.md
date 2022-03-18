@@ -489,7 +489,7 @@ GWAS解析用のツールは様々ありますが、今回は```plink```を用�
 続いて、ロジスティック回帰分析を用いたケースコントロールGWASを行います。\
 ロジスティック回帰分析には下記の書籍のデータを用います。
 
-<img width="245" alt="スクリーンショット 2022-03-18 13 53 19" src="https://user-images.githubusercontent.com/85273234/158939881-5c743637-cd07-4abf-83e0-523a0e5eb40d.png">
+<img width="245" alt="スクリーンショット 2022-03-18 13 53 19" src="https://user-images.githubusercontent.com/85273234/158939881-5c743637-cd07-4abf-83e0-523a0e5eb40d.png">\
 [Amazon link](https://www.amazon.co.jp/%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%AE%9F%E8%B7%B5%E3%81%99%E3%82%8B-%E9%81%BA%E4%BC%9D%E7%B5%B1%E8%A8%88%E5%AD%A6%E3%82%BB%E3%83%9F%E3%83%8A%E3%83%BC%E3%80%9C%E7%96%BE%E6%82%A3%E3%81%A8%E3%82%B2%E3%83%8E%E3%83%A0%E3%82%92%E7%B5%90%E3%81%B3%E3%81%A4%E3%81%91%E3%82%8B-%E5%B2%A1%E7%94%B0-%E9%9A%8F%E8%B1%A1/dp/4758120927/ref=sr_1_1?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=VWGGL65A5KUS&keywords=%E9%81%BA%E4%BC%9D%E7%B5%B1%E8%A8%88%E5%AD%A6&qid=1647578269&sprefix=%E9%81%BA%E4%BC%9D%E7%B5%B1%E8%A8%88%E5%AD%A6%2Caps%2C184&sr=8-1)\
 大阪大学医学研究科遺伝統計学教室の岡田 随象先生の本です。\
 遺伝統計学の初学者向けの書籍です。かなり完成度が高く、またわかりやすくまとめられています。本資料もこの書籍を参考作成しました。\
