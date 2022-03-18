@@ -496,10 +496,10 @@ GWAS解析用のツールは様々ありますが、今回は```plink```を用�
 
 **データは研究所のNASに格納してありますので、各自```PBL```ディレクトリに移動させて下さい。**\
 ロジスティック回帰分析には、以下の４つのファイルを用います。\
-```1KG_EUR_QC.bed```
-```1KG_EUR_QC.bim```
-```1KG_EUR_QC.fam```
-```phenotype1.txt```
+```1KG_EUR_QC.bed```\
+```1KG_EUR_QC.bim```\
+```1KG_EUR_QC.fam```\
+```phenotype1.txt```\
 大本は、[1000 genomes project](https://www.internationalgenome.org/)のデータです。
 
 ```phenotype1.txt```は表現型ファイルで、下記のような構成になっています。
