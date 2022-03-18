@@ -546,9 +546,9 @@ RおよびRStudioをまだインストールしていない場合は下記の通
 まずは必要なパッケージをインストールします。\
 RStudioを立ち上げ、コンソールに下記を入力し実行します。
 ```
-install.packages(ggrepel)
-install.packages(ggplot2)
-install.packages(dplyr)
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("ggrepel")
 ```
 続いて、マンハッタンプロットを出力します。\
 下記をコンソールに入力し実行します。
