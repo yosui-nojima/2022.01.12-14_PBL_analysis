@@ -487,12 +487,15 @@ GWAS解析用のツールは様々ありますが、今回は```plink```を用�
 ```
 - --gzvcf：VCFファイルを指定
 - --plink：PLINKに入力可能な形式で出力するためのオプション
-- --out：出力ファイルの```.```より前のファイル名
+- --out：出力ファイル（```.```より前のファイル名を指定）
 
 ディスク容量節約および高速化のため、```plink```を使って```ped```|```map```形式ファイルからバイナリ形式で保存した```bed```|```bim```|```fam```形式ファイルに変換します。（バイナリ形式なのは```bed```ファイルのみで、```bim```|```fam```ファイルはテキストファイルです。）
 ```
-./plink/plink --noweb --file ./LC_Tumor_Normal --make-bed --out ./LC_Tumor_Normal
+./plink/plink --file ./LC_Tumor_Normal --make-bed --out ./LC_Tumor_Normal
 ```
+- --file：VCFtoolsの出力ファイル（```.```より前のファイル名を指定）
+- --make-bed：バイナリファイルを出力するためのオプション
+- --out：出力ファイル（```.```より前のファイル名を指定）
 
 
 次に各種QC値でフィルタリングを行います。今回は、マイナーアレル頻度（Minor Allele Frequency; MAF）とHandry-Weinberg平衡（HWE）検定の*P*値を用います。\
@@ -501,8 +504,14 @@ GWAS解析用のツールは様々ありますが、今回は```plink```を用�
 そこで、ジェノタイプ頻度の推定値と実測値の乖離を調べるのがHWE検定です。HWE検定の*P*値もMAFと同様GWAS解析でよく用いられるフィルタリング指標の１つです。
 今回はMAFが5%以下、HWE検定の*P*値が10<sup>-6</sup>以下を除きます。
 ```
-./plink/plink --noweb --bfile ./LC_Tumor_Normal --make-bed --out ./LC_Tumor_Normal_QC --maf 0.05 --hwe 0.000001
+./plink/plink --bfile ./LC_Tumor_Normal --make-bed --out ./LC_Tumor_Normal_QC --maf 0.05 --hwe 0.000001
 ```
+- --bfile：入力するバイナリファイルを指定（```.```より前のファイル名を指定）
+- --make-bed：バイナリファイルを出力するためのオプション
+- --out：出力ファイル（```.```より前のファイル名を指定）
+- --maf：MAFの閾値（指定した値以下のMAFのポジションが除かれる）
+- --hwe：HWE検定の*P*値の閾値を指定（指定した値以下の*P*値のポジションが除かれる）
+
 続いて、ロジスティック回帰分析を用いたケースコントロールGWASを行います。\
 ロジスティック回帰分析には下記の書籍のデータを用います。
 
