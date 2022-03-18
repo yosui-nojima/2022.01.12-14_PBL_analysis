@@ -548,8 +548,13 @@ HG00108	HG00108	2
 
 ロジスティック回帰分析を実行します。
 ```
-./plink/plink --noweb --bfile ./1KG_EUR_QC --out ./1KG_EUR_QC_Pheno --pheno ./phenotype1.txt --logistic --ci 0.95
+./plink/plink --bfile ./1KG_EUR_QC --out ./1KG_EUR_QC_Pheno --pheno ./phenotype1.txt --logistic --ci 0.95
 ```
+- --bfile：入力するバイナリファイルを指定（```.```より前のファイル名を指定）
+- --out：出力ファイル（```.```より前のファイル名を指定）
+- --pheno：表現型ファイルを指定
+- --logistic：ロジスティック回帰分析を行うためのオプション
+- --ci：信頼区間
 
 次に、マンハッタンプロットを描くための処理を行います。
 ```
