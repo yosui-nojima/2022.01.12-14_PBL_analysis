@@ -612,7 +612,7 @@ ggplot(don, aes(x=BPcum, y=-log10(P))) +
   xlab("Chromosome") + ylab(expression(paste(-log[10], "(", italic("P"), "-value)")))
 ```
 
-今回のデータはSignificantなポジションは見つかりませんでしたが、上記のスクリプトでSignificantなポジションがあると下記のようにオレンジのポイントで示され、そのSNP IDが注釈されます。
+今回のデータはSignificantなポジションは見つかりませんでしたが、上記のスクリプトでSignificantなポジションがあると下記のようにオレンジのポイントで示され、そのSNP IDが注釈されます。\
 [実行ファイル](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/1KG_EUR_QC_Pheno.assoc.logistic_mp_rev.txt.zip)\
 <img width="888" alt="スクリーンショット 2022-03-21 14 27 36" src="https://user-images.githubusercontent.com/85273234/159209406-49853568-2eea-4453-81b3-926fa8589f9c.png">
 
