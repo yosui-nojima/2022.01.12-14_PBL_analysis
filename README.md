@@ -613,5 +613,5 @@ ggplot(don, aes(x=BPcum, y=-log10(P))) +
 ```
 
 今回のデータはSignificantなポジションは見つかりませんでしたが、上記のスクリプトでSignificantなポジションがあると下記のようにオレンジのポイントで示され、そのSNP IDが注釈されます。\
-[実行ファイル]
+[実行ファイル](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/1KG_EUR_QC_Pheno.assoc.logistic_mp_rev.txt.zip)
 <img width="889" alt="スクリーンショット 2022-03-21 14 23 24" src="https://user-images.githubusercontent.com/85273234/159209129-0f253651-c906-48e6-96cc-78bd1e86cb20.png">
