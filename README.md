@@ -286,7 +286,7 @@ curl -OL ftp://ftp.1000genomes.ebi.ac.uk//vol1/ftp/technical/reference/phase2_re
 ```
 - -t：スレッド数（使用するPC環境に合わせて設定して下さい。）
 
-```.sam```ファイルから```.bam```ファイルへ変換します。```.bam```ファイルはバイナリファイルのため、データサイズの縮小化と以降の解析作業の高速化させます。
+```.sam```ファイルから```.bam```ファイルへ変換します。```.bam```ファイルはバイナリファイルのため、データサイズの縮小化と以降の解析作業を高速化させます。
 ```
 ./samtools-1.14/samtools sort -@ 8 -o ./Normal.bam ./Normal.sam
 ./samtools-1.14/samtools sort -@ 8 -o ./Tumor.bam ./Tumor.sam
