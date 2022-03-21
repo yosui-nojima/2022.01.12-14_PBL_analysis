@@ -295,7 +295,7 @@ curl -OL ftp://ftp.1000genomes.ebi.ac.uk//vol1/ftp/technical/reference/phase2_re
 - -o：出力ファイル名を指定
 
 ## 6 マッピングデータの各種QC処理
-マッピング結果であるBAMファイルを入力データとして、Duplicate リード (全く同じゲノム位置の同じ配列のリード) をマークします。\
+マッピング結果であるBAMファイルを入力データとして、Duplicate リード (全く同じゲノム位置の同じ配列のリード) をマークします。
 ```
 ./gatk-4.2.4.1/gatk MarkDuplicates -I ./Normal.bam -M ./metrics_Normal.txt -O ./Normal_MarkDuplicates.bam
 ./gatk-4.2.4.1/gatk MarkDuplicates -I ./Tumor.bam -M ./metrics_Tumor.txt -O ./Tumor_MarkDuplicates.bam
