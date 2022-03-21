@@ -612,5 +612,5 @@ ggplot(don, aes(x=BPcum, y=-log10(P))) +
   xlab("Chromosome") + ylab(expression(paste(-log[10], "(", italic("P"), "-value)")))
 ```
 
-Significantなポジションは見つかりませんでしたが、上記のスクリプトでSignificantなポジションがあると下記のようにオレンジのポイントで示され、そのSNP IDが注釈されます。
-下記のファイルで実行すれば、
+今回のデータはSignificantなポジションは見つかりませんでしたが、上記のスクリプトでSignificantなポジションがあると下記のようにオレンジのポイントで示され、そのSNP IDが注釈されます。
+実行ファイル
