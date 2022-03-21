@@ -614,5 +614,44 @@ ggplot(don, aes(x=BPcum, y=-log10(P))) +
 
 今回のデータはSignificantなポジションは見つかりませんでしたが、上記のスクリプトでSignificantなポジションがあると下記のようにオレンジのポイントで示され、そのSNP IDが注釈されます。\
 [実行ファイル](https://github.com/nojima-q/2022.01.12-14_PBL_analysis/raw/main/1KG_EUR_QC_Pheno.assoc.logistic_mp_rev.txt.gz)\
+```
+mv ~/Downloads/1KG_EUR_QC_Pheno.assoc.logistic_mp_rev.txt.gz ~/PBL/
+gunzip 1KG_EUR_QC_Pheno.assoc.logistic_mp_rev.txt.gz
+```
+```
+library(ggrepel)
+library(ggplot2)
+library(dplyr)
+
+gwasResults <- read.table("~/PBL/1KG_EUR_QC_Pheno.assoc.logistic_mp_rev.txt", header = T)
+don <- gwasResults %>% 
+  group_by(CHR) %>% 
+  summarise(chr_len=max(BP)) %>% 
+  mutate(tot=cumsum(as.numeric(chr_len))-chr_len) %>%
+  select(-chr_len) %>%
+  left_join(gwasResults, ., by=c("CHR"="CHR")) %>%
+  arrange(CHR, BP) %>%
+  mutate( BPcum=BP+tot) %>%
+  mutate( is_annotate=ifelse(-log10(P)>7.30103, "yes", "no")) 
+axisdf <- don %>% group_by(CHR) %>% summarize(center=( max(BPcum) + min(BPcum) ) / 2 )
+sig = 5e-8
+ggplot(don, aes(x=BPcum, y=-log10(P))) +
+  geom_point( aes(color=as.factor(CHR)), alpha=0.8, size=1.3) +
+  scale_color_manual(values = rep(c("pink", "skyblue"), 22)) +
+  scale_x_continuous( label = axisdf$CHR, breaks= axisdf$center ) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0,10)) +
+  geom_point(data=subset(don, is_annotate=="yes"), color="orange", size=2) +
+  geom_label_repel( data=subset(don, is_annotate=="yes"), aes(label=SNP), size=5) +
+  theme_bw() +
+  theme( 
+    legend.position="none",
+    panel.border = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()
+  ) +
+  geom_hline(yintercept = -log10(sig)) +
+  xlab("Chromosome") + ylab(expression(paste(-log[10], "(", italic("P"), "-value)")))
+```
+
 <img width="888" alt="スクリーンショット 2022-03-21 14 27 36" src="https://user-images.githubusercontent.com/85273234/159209406-49853568-2eea-4453-81b3-926fa8589f9c.png">
 
