@@ -478,7 +478,7 @@ paste info1.txt info2.txt > combine_GenotypeGVCFs_filtered_passed_annotated_extr
 rm -rf info1.txt info2.txt
 ```
 
-## 8 関連解析と各種解析結果の表示（GWAS解析、生存時間解析、系統樹解析）
+## 8 GWASとその結果をManhattan plotで示す
 GWAS解析用のツールは様々ありますが、今回は```plink```を用います。\
 
 まずは、```vcftools```を用いて```vcf```ファイルを```plink```に入力可能なデータ(```ped```|```map```形式ファイル)に変換します。
