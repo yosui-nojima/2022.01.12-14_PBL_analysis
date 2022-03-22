@@ -61,7 +61,6 @@ cd ..
 ```
 解析に必要なファイルをダウンロード、解凍します。
 ```
-curl -OL https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/Truseq_stranded_totalRNA_adapter.fa
 curl -OL https://zenodo.org/record/3359882/files/ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz
 curl -OL https://zenodo.org/record/3359882/files/ALL.wgs.phase3_shapeit2_mvncall_integrated_v5b.20130502.sites.vcf.gz.tbi
 curl -OL http://bochet.gcc.biostat.washington.edu/beagle/genetic_maps/plink.GRCh37.map.zip
@@ -204,7 +203,7 @@ java -jar ~/PBL/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 8 -phred33 ~/P
 - ILLUMINACLIP：アダプター配列をFASTA形式で記載してもの。後ろの数字は、許容ミスマッチ数:palindrome clip threshold:simple clip thresholdを表す。(今回は指定していません。)
 - LEADING：5'末端から設定したスコア値未満の塩基をトリム
 - TRAILING：3'末端から設定したスコア値未満の塩基をトリム
-- SLIDINGWINDOW：左の数字はウィンドウサイズ、右の数字は平均クオリティ値を表します。ウィンドウサイズの範囲内の塩基のスコア平均が設定値よりも低ければ、3'末端側の全ての塩基をトリム。\
+- SLIDINGWINDOW：左の数字はウィンドウサイズ、右の数字は平均クオリティ値を表します。ウィンドウサイズの範囲内の塩基のスコア平均が設定値よりも低ければ、3'末端側の全ての塩基をトリム。
 - MINLEN：設定値未満の塩基数になったリードを除去する。
 
 ### リードトリミング後のFastQC結果
