@@ -196,12 +196,12 @@ Trimmomaticを使って、アダプターの除去および低スコアな塩基
 アダプター配列を記載したFATSAファイルは[ここ](https://github.com/nojima-q/2021-12-13-15_PBL_analysis/raw/main/Truseq_stranded_totalRNA_adapter.fa)からダウンロード可能です。（今回は、illumina社のTruSeqシリーズの配列を記載しています。自前データで実行する際は、ライブラリー作製キットで使用している配列が記載されたFASTAファイルを用意して実行して下さい。）\
 下記はpaired-endでシーケンスしたFASTQファイルの場合です。
 ```
-java -jar ~/PBL/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 8 -phred33 ~/PBL/Normal_1_100K.fastq.gz ~/PBL/Normal_2_100K.fastq.gz ~/PBL/Normal_1_100K_trim_paired.fastq.gz ~/PBL/Normal_1_100K_trim_unpaired.fastq.gz ~/PBL/Normal_2_100K_trim_paired.fastq.gz ~/PBL/Normal_2_100K_trim_unpaired.fastq.gz ILLUMINACLIP:Truseq_stranded_totalRNA_adapter.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:25
-java -jar ~/PBL/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 8 -phred33 ~/PBL/Tumor_1_100K.fastq.gz ~/PBL/Tumor_2_100K.fastq.gz ~/PBL/Tumor_1_100K_trim_paired.fastq.gz ~/PBL/Tumor_1_100K_trim_unpaired.fastq.gz ~/PBL/Tumor_2_100K_trim_paired.fastq.gz ~/PBL/Tumor_2_100K_trim_unpaired.fastq.gz ILLUMINACLIP:Truseq_stranded_totalRNA_adapter.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:25
+java -jar ~/PBL/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 8 -phred33 ~/PBL/Normal_1_100K.fastq.gz ~/PBL/Normal_2_100K.fastq.gz ~/PBL/Normal_1_100K_trim_paired.fastq.gz ~/PBL/Normal_1_100K_trim_unpaired.fastq.gz ~/PBL/Normal_2_100K_trim_paired.fastq.gz ~/PBL/Normal_2_100K_trim_unpaired.fastq.gz LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:25
+java -jar ~/PBL/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 8 -phred33 ~/PBL/Tumor_1_100K.fastq.gz ~/PBL/Tumor_2_100K.fastq.gz ~/PBL/Tumor_1_100K_trim_paired.fastq.gz ~/PBL/Tumor_1_100K_trim_unpaired.fastq.gz ~/PBL/Tumor_2_100K_trim_paired.fastq.gz ~/PBL/Tumor_2_100K_trim_unpaired.fastq.gz LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:25
 ```
 - PE：レイアウトがpaired-endシーケンスのときに指定。single-endの場合はSEを指定します。
 - -threads：スレッド数（使用するPC環境に合わせて設定して下さい。）
-- ILLUMINACLIP：Truseq_stranded_totalRNA_adapter.faはillumina社のTruSeqシリーズのアダプター配列をFASTA形式で記載してもの。後ろの数字は、許容ミスマッチ数:palindrome clip threshold:simple clip thresholdを表す。
+- ILLUMINACLIP：アダプター配列をFASTA形式で記載してもの。後ろの数字は、許容ミスマッチ数:palindrome clip threshold:simple clip thresholdを表す。(今回は指定していません。)
 - LEADING：5'末端から設定したスコア値未満の塩基をトリム
 - TRAILING：3'末端から設定したスコア値未満の塩基をトリム
 - SLIDINGWINDOW：左の数字はウィンドウサイズ、右の数字は平均クオリティ値を表します。ウィンドウサイズの範囲内の塩基のスコア平均が設定値よりも低ければ、3'末端側の全ての塩基をトリム。\
